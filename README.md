@@ -1,5 +1,3 @@
-# valibox-build-v3
-temporary repository to play around with new valibox build system
 
 This repository contains standard configurations for building the Valibox with SPIN for specific architectures and devices, as well as a build tool that performs all the steps necessary to build complete images and packages for all the supported devices.
 
