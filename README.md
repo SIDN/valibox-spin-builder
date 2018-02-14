@@ -28,7 +28,7 @@ If the build is stopped (by manual break or because of a problem), you can resum
 
 You can restart the build from the first step with -r:
 
-    ../valibox-spin-builder/build.py -b
+    ../valibox-spin-builder/build.py -r
 
 ## Editing options
 
