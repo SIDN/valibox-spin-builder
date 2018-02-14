@@ -1,0 +1,14 @@
+
+config wifi-device 'radio0'
+	option type 'mac80211'
+	option hwmode '11g'
+	option path 'platform/10180000.wmac'
+	option htmode 'HT20'
+	option channel '11'
+	option disabled '0'
+
+config wifi-iface
+	option device 'radio0'
+	option mode 'ap'
+	option ssid 'SIDN-ValiBox-XHWADDRX'
+    option network 'lan'

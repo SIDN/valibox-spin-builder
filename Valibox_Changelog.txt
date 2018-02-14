@@ -1,0 +1,83 @@
+- ValiBox Release 1.5 beta -
+
+Supports:
+ * DNSSEC validation
+ * User-friendly negative trust anchor management
+ * Full configurability through OpenWRT
+ * Includes SPIN prototype
+
+Changelog:
+
+1.5
+- Updated LEDE to 17.01
+- Added DNS query logging / visualisation
+
+1.4
+- Changed base system from OpenWRT to LEDE due to support for newer GL-Inet devices
+- Updated base system (including patches for krack)
+- Assorted cleanups in data logging
+- Fixed issue with updater not recognizing X.509 certificate
+- Fixed issue where wifi password was not always updated when set by user
+- Updated SPIN prototype to 0.5:
+  * Renamed main spin daemon spin_mqtt to spind
+  * Added 'block' and 'allow' functionality to SPIN graph front-end
+  * Added experimental 'auto block' tool spin_enforcer
+  * Added verbosity option to capture module
+  * Added 'local' mode option to capture module (use IN/OUT chains only, not FORWARD)
+  * Improvements in capture module
+  * Fixed issue where ignoring a node did not always remove all relevant other nodes from view
+  * Fixed issue where user-set name was not shown until restart
+  * Fixed issue where ARP table was not always read completely
+
+1.3
+- Updated to latest OpenWRT trunk and packages
+- Updated SPIN prototype to 0.4
+- Replaced direct websockets with central MQTT server
+- Collection, filtering and blocking is now done through a kernel module for efficiency and to solve compatibility issues with other iptables tools
+- added visualisation of blocked traffic
+- Fixed issue where user-set names were not remembered
+- Fixed issue with spaces and other chars in password screen
+
+
+1.2
+- Added prototype version of the SPIN network traffic visualiser
+- Ported AutoNTA to lua
+- Massively increased speed of main pages
+- Removed python dependencies
+- Fixed a number of issues with the default configuration of the gl-mt300a image
+
+1.1.3
+- Updated Unbound to 1.6.0
+- Improved initial password screen
+- Remove listen on ULA in unbound
+
+1.1.2
+- Update to latest OpenWRT version
+- Change defaults to match GL-inet values
+
+1.1.1
+- Enable NTA management by default
+
+1.1.0
+- Added initial wifi name and password settings page
+- Added double-cookie protection of the 'Set NTA' and 'Update install' pages
+- 'Ask NTA' page now shows the actual DNSSEC error
+- The NTA management can now be turned off, so that you only see the DNSSEC error but cannot override it
+- Update system now allows switching between release and beta
+- Added 'keep settings' option to update system
+- Various other improvements in update system
+- Made all texts multilingual (currently the options are en_US and nl_NL)
+- Added logging options (to syslog of OpenWRT)
+- Added Valibox configuration tab in LuCI (to set language, logging, and disable NTA)
+
+1.0.3
+- Stop caching of dynamic internal pages
+- HTML cleanup
+
+1.0.2
+- Use fixed local addresses instead of derived ones
+
+1.0.1
+- Fixed issue with setting the wrong internal IPv6 address
+- Fixed issue where unbound would sometimes not start
+- Improved layout of NTA pages
