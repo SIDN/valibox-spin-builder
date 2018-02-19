@@ -2,7 +2,7 @@
 This repository contains standard configurations for building the [Valibox](https://valibox.sidnlabs.nl) with [SPIN](https://spin.sidnlabs.nl) for specific architectures and devices, as well as a build tool that performs all the steps necessary to build complete images and packages for all the supported devices.
 
 Main intended 'features':
-* collect and store configurations without having a clone of lede-source
+* collect and store configurations without having a clone of [lede](https://en.wikipedia.org/wiki/LEDE)-source
 * build from scratch, but also from existing checkouts
 * remember last build configuration
 * resume build if failed or stopped, possibly with slightly altered settings (like -j1 V=s)
