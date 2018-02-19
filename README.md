@@ -1,5 +1,5 @@
 
-This repository contains standard configurations for building the Valibox with SPIN for specific architectures and devices, as well as a build tool that performs all the steps necessary to build complete images and packages for all the supported devices.
+This repository contains standard configurations for building the [Valibox](https://valibox.sidnlabs.nl) with [SPIN](https://spin.sidnlabs.nl) for specific architectures and devices, as well as a build tool that performs all the steps necessary to build complete images and packages for all the supported devices.
 
 Main intended 'features':
     - collect and store configurations without having a clone of lede-source
