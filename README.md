@@ -17,23 +17,23 @@ Check out this repository, create a separate build directory, and run the builde
     git clone https://github.com/SIDN/valibox-spin-builder
     mkdir build
     cd build
-    ../valibox-spin-builder/build.py -b
+    ../valibox-spin-builder/builder.py -b
 
 ## Resuming/restarting
 
 If the build is stopped (by manual break or because of a problem), you can resume the build with the same command:
 
-    ../valibox-spin-builder/build.py -b
+    ../valibox-spin-builder/builder.py -b
 
 You can restart the build from the first step with -r:
 
-    ../valibox-spin-builder/build.py -r
+    ../valibox-spin-builder/builder.py -r
 
 ## Editing options
 
 You can edit specific build options, such as target device, source repository branches, and verbose build by using
 
-    ../valibox-spin-builder/build.py -e
+    ../valibox-spin-builder/builder.py -e
 
 After that, depending on the changes, you can either restart or resume the build.
 
@@ -41,7 +41,7 @@ After that, depending on the changes, you can either restart or resume the build
 
 If you want to review all steps that will be performed for the current configuration, you can use
 
-    ../valibox-spin-builder/build.py --print-steps
+    ../valibox-spin-builder/builder.py --print-steps
 
 
 ## Configuration options
