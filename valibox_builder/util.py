@@ -30,4 +30,4 @@ def basic_cmd(cmd, may_fail = False):
 def basic_cmd_output(cmd):
     p = subprocess.Popen(shlex.split(cmd), stdout=subprocess.PIPE)
     (stdout, _) = p.communicate()
-    return stdout.decode("utf-8")
+    return stdout.decode("utf-8").strip()

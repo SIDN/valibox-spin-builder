@@ -12,7 +12,7 @@ class Step():
         self.conditional = conditional
 
     def if_not_cmd(self, cmd, result):
-        self.conditional = CmdOutputConditional(cmd, result, False, self.directory)
+        self.conditional = CmdOutputConditional(cmd, result, True, self.directory)
 
     def if_dir_not_exists(self, directory):
         self.conditional = DirNotExistsConditional(directory)
