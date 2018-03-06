@@ -154,13 +154,15 @@ def build_steps(config):
     #
     for target in targets:
         valibox_build_tools_dir = get_valibox_build_tools_dir()
-        sb.add_cmd("cp -r ../%s/devices/%s/files ./files" % (valibox_build_tools_dir, target)).at( "lede-source")
+        sb.add_cmd("cp -r %s/devices/%s/files ./files" % (valibox_build_tools_dir, target)).at( "lede-source")
         sb.add(ValiboxVersionStep(version_string)).at("lede-source")
-        sb.add_cmd("cp ../%s/devices/%s/diffconfig ./.config" % (valibox_build_tools_dir, target)).at("lede-source")
+        sb.add_cmd("cp %s/devices/%s/diffconfig ./.config" % (valibox_build_tools_dir, target)).at("lede-source")
         sb.add_cmd("make defconfig").at("lede-source")
         build_cmd = "make"
         if config.getboolean("LEDE", "verbose_build"):
             build_cmd += " -j1 V=s"
+        else:
+            build_cmd += " -j6"
         sb.add_cmd(build_cmd).at("lede-source")
 
     #
@@ -169,9 +171,9 @@ def build_steps(config):
     if config.getboolean("Release", "create_release"):
         changelog_file = config.get("Release", "changelog_file")
         if changelog_file == "":
-            changelog_file = os.path.abspath(get_valibox_build_tools_dir()) + "/Valibox_Changelog.txt";
+            changelog_file = get_valibox_build_tools_dir() + "/Valibox_Changelog.txt";
 
-        sb.add(CreateReleaseStep(targets, os.path.abspath(get_valibox_build_tools_dir()),
+        sb.add(CreateReleaseStep(targets, get_valibox_build_tools_dir(),
                     version_string, changelog_file,
                     config.get("Release", "target_directory")).at("lede-source"))
 
@@ -180,7 +182,7 @@ def build_steps(config):
 
 # Return the directory of this toolkit; needed to get device information
 def get_valibox_build_tools_dir():
-    return os.path.dirname(__file__)
+    return os.path.dirname(os.path.abspath(__file__))
 
 
 def main():
