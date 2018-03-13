@@ -40,7 +40,7 @@ DEFAULT_CONFIG = collections.OrderedDict((
                 ('source_branch', 'lede-17.01'),
                 ('target_device', 'all'),
                 ('update_all_feeds', False),
-                ('verbose_build', False),
+                ('make_arguments', ''),
     ))),
     ('sidn_openwrt_pkgs', collections.OrderedDict((
                 ('update_git', True),
@@ -159,10 +159,8 @@ def build_steps(config):
         sb.add_cmd("cp %s/devices/%s/diffconfig ./.config" % (valibox_build_tools_dir, target)).at("lede-source")
         sb.add_cmd("make defconfig").at("lede-source")
         build_cmd = "make"
-        if config.getboolean("LEDE", "verbose_build"):
-            build_cmd += " -j1 V=s"
-        else:
-            build_cmd += " -j6"
+        if config.get("LEDE", "make_arguments") != "":
+            build_cmd += " %s" % config.get("LEDE", "make_arguments")
         sb.add_cmd(build_cmd).at("lede-source")
 
     #
