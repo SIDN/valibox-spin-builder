@@ -10,6 +10,17 @@ Main intended 'features':
 
 # Build Tool
 
+## Requirements
+
+These requirements are mostly for building LEDE/Openwrt itself:
+* subversion g++ zlib1g-dev build-essential git python rsync man-db
+* libncurses5-dev gawk gettext unzip file libssl-dev wget
+
+On a Debian system you can use the following commands:
+	sudo apt-get install python3 git-core
+	sudo apt-get install subversion g++ zlib1g-dev build-essential git python rsync man-db
+	sudo apt-get install libncurses5-dev gawk gettext unzip file libssl-dev wget
+
 ## Quick start
 
 Check out this repository, create a separate build directory, and run the builder.
