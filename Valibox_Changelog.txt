@@ -1,4 +1,4 @@
-- ValiBox Release 1.5 beta -
+- ValiBox Release 1.6 beta -
 
 Supports:
  * DNSSEC validation
@@ -7,6 +7,22 @@ Supports:
  * Includes SPIN prototype
 
 Changelog:
+
+1.6 (beta)
+- Updated LEDE to 17.01.4 (commit fad29d2c3dea9af148b50acdb9f6dc2a200c8ca9)
+- Valibox update screen now also shows changelog if there are no updates
+- nginx no longer logs to the file system (issue #4)
+- Updated SPIN prototype to 0.6:
+  * The location of the MQTT server is now flexible in all tools and daemons
+  * Fixed color of bubbles and arrows (#27, #29, #31)
+  * Fixed block and interface buttons (#28, #35)
+  * Fixed valibox interface when using the IP address in the browser (#32)
+  * Big efficiency update in kmod/spind communication, which should result in much less 'missed' packets
+  * Added command-line option to set/unset features of spin_enforcer
+  * Updated Vis library
+  * Added early MUD prototype
+  * Added early prototype of Provider API (in spin_enforcer and incident_report_listener)
+  * Improved node merging
 
 1.5
 - Updated LEDE to 17.01
