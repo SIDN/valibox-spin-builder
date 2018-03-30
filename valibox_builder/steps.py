@@ -141,9 +141,9 @@ class CreateReleaseStep(Step):
 
 class ValiboxVersionStep(Step):
     """
-    This step creates the "/etc/valibox.version" file
+    This step creates the "/var/valibox.version" file
     """
-    VERSIONFILE = "files/etc/valibox.version"
+    VERSIONFILE = "files/var/valibox.version"
 
     def __init__(self, version_string, directory=None):
         self.version_string = version_string
