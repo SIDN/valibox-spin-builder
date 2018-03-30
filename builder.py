@@ -154,7 +154,10 @@ def build_steps(config):
     #
     for target in targets:
         valibox_build_tools_dir = get_valibox_build_tools_dir()
-        sb.add_cmd("cp -r %s/devices/%s/files ./files" % (valibox_build_tools_dir, target)).at( "lede-source")
+        sb.add_cmd("cp -r %s/devices/%s/files ./files" % (valibox_build_tools_dir, target)).at("lede-source")
+        # Add the current changelog file and a version file
+        sb.add_cmd("mkdir -p ./files/var/").at("lede-source")
+        sb.add_cmd("cp -r %s ./files/var/valibox_changelog.txt" % (get_changelog_file(config))).at( "lede-source")
         sb.add(ValiboxVersionStep(version_string)).at("lede-source")
         sb.add_cmd("cp %s/devices/%s/diffconfig ./.config" % (valibox_build_tools_dir, target)).at("lede-source")
         sb.add_cmd("make defconfig").at("lede-source")
@@ -167,12 +170,8 @@ def build_steps(config):
     # And finally, move them into a release directory structure
     #
     if config.getboolean("Release", "create_release"):
-        changelog_file = config.get("Release", "changelog_file")
-        if changelog_file == "":
-            changelog_file = get_valibox_build_tools_dir() + "/Valibox_Changelog.txt";
-
         sb.add(CreateReleaseStep(targets, get_valibox_build_tools_dir(),
-                    version_string, changelog_file,
+                    version_string, get_changelog_file(config),
                     config.get("Release", "target_directory")).at("lede-source"))
 
     return sb.steps
@@ -182,7 +181,12 @@ def build_steps(config):
 def get_valibox_build_tools_dir():
     return os.path.dirname(os.path.abspath(__file__))
 
-
+def get_changelog_file(config):
+    changelog_file = config.get("Release", "changelog_file")
+    if changelog_file == "":
+        changelog_file = get_valibox_build_tools_dir() + "/Valibox_Changelog.txt";
+    return changelog_file
+ 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--build', action="store_true", help='Start or continue the build from the latest step in the last run')
