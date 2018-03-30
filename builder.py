@@ -154,10 +154,11 @@ def build_steps(config):
     #
     for target in targets:
         valibox_build_tools_dir = get_valibox_build_tools_dir()
+        sb.add_cmd("rm -rf files").at("lede-source")
         sb.add_cmd("cp -r %s/devices/%s/files ./files" % (valibox_build_tools_dir, target)).at("lede-source")
         # Add the current changelog file and a version file
-        sb.add_cmd("mkdir -p ./files/var/").at("lede-source")
-        sb.add_cmd("cp -r %s ./files/var/valibox_changelog.txt" % (get_changelog_file(config))).at( "lede-source")
+        sb.add_cmd("mkdir -p ./files/").at("lede-source")
+        sb.add_cmd("cp -r %s ./files/valibox_changelog.txt" % (get_changelog_file(config))).at( "lede-source")
         sb.add(ValiboxVersionStep(version_string)).at("lede-source")
         sb.add_cmd("cp %s/devices/%s/diffconfig ./.config" % (valibox_build_tools_dir, target)).at("lede-source")
         sb.add_cmd("make defconfig").at("lede-source")
@@ -186,7 +187,7 @@ def get_changelog_file(config):
     if changelog_file == "":
         changelog_file = get_valibox_build_tools_dir() + "/Valibox_Changelog.txt";
     return changelog_file
- 
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('-b', '--build', action="store_true", help='Start or continue the build from the latest step in the last run')
