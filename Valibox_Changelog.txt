@@ -1,24 +1,24 @@
-- ValiBox Release 1.5 beta -
+- ValiBox Release 1.5 -
 
 Supports:
  * DNSSEC validation
  * User-friendly negative trust anchor management
  * Full configurability through OpenWRT
- * Includes SPIN prototype
+ * Includes SPIN prototype (0.6)
 
 Changelog:
 
-1.5 (beta)
-- Updated LEDE to 17.01.4 (commit fad29d2c3dea9af148b50acdb9f6dc2a200c8ca9)
-- Added DNS query logging / visualisation
+1.5
+- Updated LEDE to 17.01.4 (commit afca23558a2fbfb2cb044ec69bfb9a7447121927)
 - Valibox update screen now also shows changelog if there are no updates
 - nginx no longer logs to the file system (issue #4)
 - Updated SPIN prototype to 0.6:
+  * Added DNS query logging / visualisation
+  * Big efficiency update in kmod/spind communication, which should result in much less 'missed' packets
   * The location of the MQTT server is now flexible in all tools and daemons
   * Fixed color of bubbles and arrows (#27, #29, #31)
   * Fixed block and interface buttons (#28, #35)
   * Fixed valibox interface when using the IP address in the browser (#32)
-  * Big efficiency update in kmod/spind communication, which should result in much less 'missed' packets
   * Added command-line option to set/unset features of spin_enforcer
   * Updated Vis library
   * Added early MUD prototype
