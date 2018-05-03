@@ -103,14 +103,14 @@ def build_steps(config):
         # update the PKGHASH and location in the package feed data
         # TODO: there are a few hardcoded values assumed here and in the next few steps
         sb.add_cmd("./create_tarball.sh -n").at("spin")
-        sb.add_cmd("rm -f dl/spin-0.6-beta.tar.gz").at("lede-source")
+        sb.add_cmd("rm -f dl/spin-0.7-beta.tar.gz").at("lede-source")
 
         # Set that in the pkg feed data; we do not want to change the repository, so we make a copy and update that
         orig_sidn_pkg_feed_dir = sidn_pkg_feed_dir
         sidn_pkg_feed_dir = sidn_pkg_feed_dir + "_local"
         sb.add_cmd("git checkout-index -a -f --prefix=../%s/" % sidn_pkg_feed_dir).at(orig_sidn_pkg_feed_dir)
 
-        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "/tmp/spin-0.6-beta.tar.gz"))
+        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "/tmp/spin-0.7-beta.tar.gz"))
 
     #
     # Update general package feeds in LEDE

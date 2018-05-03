@@ -103,14 +103,40 @@ class UpdatePkgMakefile(Step):
                 with open(self.makefile + ".tmp", "w") as outfile:
                     for line in infile.readlines():
                         if line.startswith("PKG_VERSION:="):
-                            outfile.write("PKG_VERSION:=0.6-beta\n")
+                            outfile.write("PKG_VERSION:=0.7-beta\n")
                         elif line.startswith("PKG_BUILD_DIR:="):
-                            outfile.write("PKG_BUILD_DIR:=spin-0.6-beta\n")
+                            outfile.write("PKG_BUILD_DIR:=spin-0.7-beta\n")
                         elif line.startswith("PKG_SOURCE:="):
                             outfile.write("PKG_SOURCE:=%s\n" % os.path.basename(self.tarfile))
                         elif line.startswith("PKG_SOURCE_URL:="):
                             outfile.write("PKG_SOURCE_URL:=file://%s\n" % os.path.dirname(self.tarfile))
                         elif line.startswith("PKG_HASH:="):
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
+                            print("[XX] NEW PKG HASH!!!!! '%s'" % hash_str)
                             outfile.write("PKG_HASH:=%s\n" % hash_str)
                         else:
                             outfile.write(line)

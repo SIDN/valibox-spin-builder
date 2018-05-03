@@ -55,6 +55,8 @@ CONFIG_OPENSSL_WITH_SRP=y
 # CONFIG_PACKAGE_ath9k-htc-firmware is not set
 CONFIG_PACKAGE_autonta=y
 # CONFIG_PACKAGE_b43legacy-firmware is not set
+CONFIG_PACKAGE_bind-dig=y
+CONFIG_PACKAGE_bind-libs=y
 # CONFIG_PACKAGE_block-mount is not set
 # CONFIG_PACKAGE_bnx2-firmware is not set
 # CONFIG_PACKAGE_brcmfmac-firmware-usb is not set
@@ -69,6 +71,7 @@ CONFIG_PACKAGE_coreutils=y
 CONFIG_PACKAGE_coreutils-stat=y
 CONFIG_PACKAGE_curl=y
 CONFIG_PACKAGE_drill=y
+# CONFIG_PACKAGE_eudev is not set
 CONFIG_PACKAGE_ip-tiny=y
 # CONFIG_PACKAGE_iwl3945-firmware is not set
 # CONFIG_PACKAGE_iwl4965-firmware is not set
@@ -273,8 +276,6 @@ CONFIG_PACKAGE_ip-tiny=y
 # CONFIG_PACKAGE_kmod-ipt-nfqueue is not set
 # CONFIG_PACKAGE_kmod-ipt-psd is not set
 # CONFIG_PACKAGE_kmod-ipt-quota2 is not set
-# CONFIG_PACKAGE_kmod-ipt-raw is not set
-# CONFIG_PACKAGE_kmod-ipt-raw6 is not set
 # CONFIG_PACKAGE_kmod-ipt-sysrq is not set
 # CONFIG_PACKAGE_kmod-ipt-tarpit is not set
 # CONFIG_PACKAGE_kmod-ipt-tee is not set
@@ -495,6 +496,7 @@ CONFIG_PACKAGE_ip-tiny=y
 # CONFIG_PACKAGE_kmod-zram is not set
 # CONFIG_PACKAGE_libatomic is not set
 # CONFIG_PACKAGE_libbfd is not set
+# CONFIG_PACKAGE_libblkid is not set
 # CONFIG_PACKAGE_libbz2 is not set
 CONFIG_PACKAGE_libcap=y
 CONFIG_PACKAGE_libcares=y
@@ -503,7 +505,6 @@ CONFIG_PACKAGE_libcurl=y
 # CONFIG_PACKAGE_libertas-sdio-firmware is not set
 # CONFIG_PACKAGE_libertas-spi-firmware is not set
 # CONFIG_PACKAGE_libertas-usb-firmware is not set
-# CONFIG_PACKAGE_libevdev is not set
 CONFIG_PACKAGE_libexpat=y
 CONFIG_PACKAGE_libiwinfo-lua=y
 CONFIG_PACKAGE_libldns=y
@@ -514,17 +515,22 @@ CONFIG_PACKAGE_libncurses=y
 CONFIG_PACKAGE_libnfnetlink=y
 # CONFIG_PACKAGE_libopcodes is not set
 CONFIG_PACKAGE_libopenssl=y
+CONFIG_PACKAGE_libpcap=y
 CONFIG_PACKAGE_libpcre=y
 CONFIG_PACKAGE_librt=y
 # CONFIG_PACKAGE_libstdcpp is not set
 CONFIG_PACKAGE_libubus-lua=y
 CONFIG_PACKAGE_libuci-lua=y
-# CONFIG_PACKAGE_libudev-fbsd is not set
+# CONFIG_PACKAGE_libudev is not set
+# CONFIG_PACKAGE_libunwind is not set
 CONFIG_PACKAGE_libustream-mbedtls=y
 CONFIG_PACKAGE_libuuid=y
 CONFIG_PACKAGE_libwebsockets-openssl=y
 # CONFIG_PACKAGE_libwrap is not set
 CONFIG_PACKAGE_lua=y
+CONFIG_PACKAGE_lua-copas=y
+CONFIG_PACKAGE_lua-coxpcall=y
+CONFIG_PACKAGE_lua-minittp=y
 CONFIG_PACKAGE_lua-mosquitto=y
 CONFIG_PACKAGE_luabitop=y
 CONFIG_PACKAGE_luaposix=y
@@ -558,7 +564,6 @@ CONFIG_PACKAGE_px5g-mbedtls=y
 # CONFIG_PACKAGE_r8169-firmware is not set
 # CONFIG_PACKAGE_rbcfg is not set
 CONFIG_PACKAGE_rpcd=y
-CONFIG_PACKAGE_rpcd-mod-rrdns=y
 # CONFIG_PACKAGE_rt2800-pci-firmware is not set
 # CONFIG_PACKAGE_rt2800-usb-firmware is not set
 # CONFIG_PACKAGE_rt61-pci-firmware is not set
@@ -577,6 +582,7 @@ CONFIG_PACKAGE_sidn-unbound-control-setup=y
 CONFIG_PACKAGE_sidn-unbound-host=y
 # CONFIG_PACKAGE_snapshot-tool is not set
 CONFIG_PACKAGE_spin=y
+CONFIG_PACKAGE_tcpdump=y
 CONFIG_PACKAGE_terminfo=y
 CONFIG_PACKAGE_uhttpd=y
 CONFIG_PACKAGE_uhttpd-mod-lua=y
@@ -589,4 +595,3 @@ CONFIG_PACKAGE_vim-full=y
 # CONFIG_PACKAGE_wl18xx-firmware is not set
 # CONFIG_PACKAGE_wwan is not set
 CONFIG_PACKAGE_zlib=y
-# CONFIG_POSTFIX_PCRE is not set
