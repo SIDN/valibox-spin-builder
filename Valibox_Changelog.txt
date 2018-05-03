@@ -1,4 +1,4 @@
-- ValiBox Release 1.5 -
+- ValiBox Release 1.6 Beta -
 
 Supports:
  * DNSSEC validation
@@ -7,6 +7,9 @@ Supports:
  * Includes SPIN prototype (0.6)
 
 Changelog:
+
+1.6 (Beta)
+- Check for Wifi password length during initial setup
 
 1.5
 - Updated LEDE to 17.01.4 (commit afca23558a2fbfb2cb044ec69bfb9a7447121927)
