@@ -1,5 +1,7 @@
 - ValiBox Release 1.6 Beta -
 
+IMPORTANT: Version 1.6 (beta) contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+
 Supports:
  * DNSSEC validation
  * User-friendly negative trust anchor management
@@ -9,7 +11,10 @@ Supports:
 Changelog:
 
 1.6 (Beta)
+IMPORTANT: Version 1.6 (beta) contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
 - Check for Wifi password length during initial setup
+- Updated SPIN prototype to 0.7:
+  * Added 'Download PCAP traffic' 
 
 1.5
 - Updated LEDE to 17.01.4 (commit afca23558a2fbfb2cb044ec69bfb9a7447121927)
