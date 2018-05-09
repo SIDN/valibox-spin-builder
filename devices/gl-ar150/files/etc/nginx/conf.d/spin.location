@@ -1,0 +1,5 @@
+location /spin {
+    include /etc/nginx/fastcgi_params;
+    fastcgi_buffering off;
+    fastcgi_pass 127.0.0.1:8002;
+}

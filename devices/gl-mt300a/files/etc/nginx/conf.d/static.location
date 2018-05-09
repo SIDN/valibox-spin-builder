@@ -1,0 +1,4 @@
+location /resources {
+    root   /www;
+    index  index.html index.htm;
+}
