@@ -104,7 +104,7 @@ def build_steps(config):
         # TODO: there are a few hardcoded values assumed here and in the next few steps
         sb.add_cmd("./create_tarball.sh -n").at("spin")
         sb.add_cmd("rm -f dl/spin-*.tar.gz").at("lede-source")
-        sb.add_cmd("rm -f dl/lua-minittp-*.tar.gz").at("lede-source")
+        sb.add_cmd("rm dl/lua-minittp-*.tar.xz").at("lede-source")
 
         # Set that in the pkg feed data; we do not want to change the repository, so we make a copy and update that
         orig_sidn_pkg_feed_dir = sidn_pkg_feed_dir

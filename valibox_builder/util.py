@@ -20,8 +20,10 @@ class gotodir:
             os.chdir(self.orig_dir)
 
 def basic_cmd(cmd, may_fail = False):
-    print("Running: %s" % cmd)
-    rcode = subprocess.call(shlex.split(cmd))
+    print("Running: '%s'" % cmd)
+    print("in dir: " + os.getcwd())
+    rcode = subprocess.call(cmd, shell=True)
+    print("Result: %d" % rcode)
     if may_fail:
         return True
     else:

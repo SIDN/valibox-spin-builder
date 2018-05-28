@@ -13,8 +13,12 @@ Changelog:
 1.6 (Beta)
 IMPORTANT: Version 1.6 (beta) contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
 - Check for Wifi password length during initial setup
+- Better check for referer in Autonta
+- Separation of nginx configuration snippets
 - Updated SPIN prototype to 0.7:
+  * Web UI now uses lua-minittp
   * Added 'Download PCAP traffic' 
+  * Added 'protocol' field to mqtt traffic format
 
 1.5
 - Updated LEDE to 17.01.4 (commit afca23558a2fbfb2cb044ec69bfb9a7447121927)

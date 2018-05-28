@@ -50,6 +50,7 @@ class CmdStep(Step):
                 return True
 
         if self.directory is not None:
+            print("[XX] directory set! " + self.directory)
             with gotodir(self.directory):
                 return basic_cmd(self.cmd, may_fail=self._may_fail)
         else:
