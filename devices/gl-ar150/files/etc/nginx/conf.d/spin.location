@@ -1,10 +1,10 @@
 location /spin {
-    root /www/spin;
+    root /www;
     index index.html;
 }
 location /spin_graph {
-    root /usr/lib/spin/web_ui/static/spin;
-    index graph.html
+    alias /usr/lib/spin/web_ui/static/spin;
+    index graph.html;
 }
 location /spin_api {
     include /etc/nginx/fastcgi_params;
@@ -12,9 +12,10 @@ location /spin_api {
     fastcgi_pass 127.0.0.1:8002;
 }
 # For tcpdump, we want to relax timeouts and disable buffering
-location /spin/tcpdump_start {
+location /spin_api/tcpdump_start {
     include /etc/nginx/fastcgi_params;
     fastcgi_pass 127.0.0.1:8002;
     fastcgi_buffering off;
     fastcgi_read_timeout 300s;
 }
+
