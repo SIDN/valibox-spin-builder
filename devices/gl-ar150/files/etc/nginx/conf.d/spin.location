@@ -3,7 +3,7 @@ location /spin {
     index index.html;
 }
 location /spin_graph {
-    alias /usr/lib/spin/web_ui/static/spin;
+    alias /usr/lib/spin/web_ui/static/spin_api;
     index graph.html;
 }
 location /spin_api {
