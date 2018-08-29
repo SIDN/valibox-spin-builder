@@ -2,7 +2,7 @@
 This repository contains standard configurations for building the [Valibox](https://valibox.sidnlabs.nl) with [SPIN](https://spin.sidnlabs.nl) for specific architectures and devices, as well as a build tool that performs all the steps necessary to build complete images and packages for all the supported devices.
 
 Main intended 'features':
-* collect and store configurations without having a clone of [lede](https://en.wikipedia.org/wiki/LEDE)-source
+* collect and store configurations without having a clone of [OpenWRT](https://en.wikipedia.org/wiki/OpenWRT)-source
 * build from scratch, but also from existing checkouts
 * remember last build configuration
 * resume build if failed or stopped, possibly with slightly altered settings (like -j1 V=s)
@@ -12,7 +12,7 @@ Main intended 'features':
 
 ## Requirements
 
-These requirements are mostly for building LEDE/Openwrt itself:
+These requirements are mostly for building OpenWRT/Openwrt itself:
 * subversion g++ zlib1g-dev build-essential git python rsync man-db
 * libncurses5-dev gawk gettext unzip file libssl-dev wget
 
@@ -59,7 +59,7 @@ If you want to review all steps that will be performed for the current configura
 
 There are several sections in the configuration:
 
-* LEDE: Options for building the main LEDE image
+* OpenWRT: Options for building the main OpenWRT image
 * sidn_openwrt_pkgs: Options for the SIDN-specific packages
 * SPIN: Options for SPIN
 * Release: Options regarding the release you are building
@@ -68,11 +68,11 @@ Below is a full description of all options
 
 Section | Option | Value type | Description
 --------|--------|------------|------------
-LEDE | update_git | True or False | Whether to do a git update before starting the build
-LEDE | source_branch | &lt;string&gt; | The branch (or commit) of the lede-source tree to build
-LEDE | target_device | &lt;name&gt; or "all" | Target device to build for, unless this is all it should be the name of one of the directories in the devices/ directory in this repository.
-LEDE | update_all_feeds | True or False | Whether to always update all package feeds prior to building. If False, only the sidn feed is updated
-LEDE | verbose_build | True or False | When true, LEDE is built with 'make -j1 V=s'
+OpenWRT | update_git | True or False | Whether to do a git update before starting the build
+OpenWRT | source_branch | &lt;string&gt; | The branch (or commit) of the openwrt tree to build
+OpenWRT | target_device | &lt;name&gt; or "all" | Target device to build for, unless this is all it should be the name of one of the directories in the devices/ directory in this repository.
+OpenWRT | update_all_feeds | True or False | Whether to always update all package feeds prior to building. If False, only the sidn feed is updated
+OpenWRT | verbose_build | True or False | When true, OpenWRT is built with 'make -j1 V=s'
  | | |
 sidn_openwrt_pkgs | update_git | True or False | Whether to do a git update before starting the build
 sidn_openwrt_pkgs | source_branch | &lt;string&gt; | The source branch or commit of the SIDN package repository to check out

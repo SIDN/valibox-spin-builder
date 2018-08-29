@@ -87,7 +87,7 @@ class UpdatePkgMakefile(Step):
         self.tarfile = tarfile
 
     def __str__(self):
-        return "in %s: Update the LEDE package makefile %s to use %s as the source" % (self.directory, self.makefile, self.tarfile)
+        return "in %s: Update the OpenWRT package makefile %s to use %s as the source" % (self.directory, self.makefile, self.tarfile)
 
     def perform(self):
         with gotodir(self.directory):

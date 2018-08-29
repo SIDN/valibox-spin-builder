@@ -35,9 +35,9 @@ from valibox_builder.builder import BuildConfig, Builder, StepBuilder
 DEFAULT_CONFIG = collections.OrderedDict((
     ('main', collections.OrderedDict((
     ))),
-    ('LEDE', collections.OrderedDict((
+    ('OpenWRT', collections.OrderedDict((
                 ('update_git', True),
-                ('source_branch', 'lede-17.01'),
+                ('source_branch', 'v18.06.1'),
                 ('target_device', 'all'),
                 ('update_all_feeds', False),
                 ('make_arguments', ''),
@@ -65,15 +65,15 @@ def build_steps(config):
     sb = StepBuilder()
 
     #
-    # LEDE sources
+    # OpenWRT sources
     #
     steps = []
-    if config.getboolean("LEDE", "update_git"):
-        sb.add_cmd("git clone https://github.com/lede-project/source lede-source").if_dir_not_exists('lede-source')
-        sb.add_cmd("git fetch").at("lede-source")
-        sb.add(GitBranchStep(config.get("LEDE", "source_branch"), "lede-source"))
+    if config.getboolean("OpenWRT", "update_git"):
+        sb.add_cmd("git clone https://github.com/openwrt/openwrt openwrt").if_dir_not_exists('openwrt')
+        sb.add_cmd("git fetch").at("openwrt")
+        sb.add(GitBranchStep(config.get("OpenWRT", "source_branch"), "openwrt"))
         # pull errors if the 'branch' is a detached head, so it may fail
-        sb.add_cmd("git pull").at("lede-source").may_fail()
+        sb.add_cmd("git pull").at("openwrt").may_fail()
 
     #
     # SIDN Package feed sources
@@ -103,8 +103,8 @@ def build_steps(config):
         # update the PKGHASH and location in the package feed data
         # TODO: there are a few hardcoded values assumed here and in the next few steps
         sb.add_cmd("./create_tarball.sh -n").at("spin")
-        sb.add_cmd("rm -f dl/spin-*.tar.gz").at("lede-source")
-        sb.add_cmd("rm dl/lua-minittp-*.tar.xz").at("lede-source")
+        sb.add_cmd("rm -f dl/spin-*.tar.gz").at("openwrt")
+        sb.add_cmd("rm -f dl/lua-minittp-*.tar.xz").at("openwrt")
 
         # Set that in the pkg feed data; we do not want to change the repository, so we make a copy and update that
         orig_sidn_pkg_feed_dir = sidn_pkg_feed_dir
@@ -114,27 +114,27 @@ def build_steps(config):
         sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "/tmp/spin-0.7-beta.tar.gz"))
 
     #
-    # Update general package feeds in LEDE
+    # Update general package feeds in OpenWRT 
     #
-    sb.add(UpdateFeedsConf("lede-source", sidn_pkg_feed_dir))
-    if config.getboolean('LEDE', 'update_all_feeds'):
+    sb.add(UpdateFeedsConf("openwrt", sidn_pkg_feed_dir))
+    if config.getboolean('OpenWRT', 'update_all_feeds'):
         # Always update all feeds
-        sb.add_cmd("./scripts/feeds update -a").at("lede-source")
-        sb.add_cmd("./scripts/feeds install -a").at("lede-source")
+        sb.add_cmd("./scripts/feeds update -a").at("openwrt")
+        sb.add_cmd("./scripts/feeds install -a").at("openwrt")
     else:
         # Only update sidn feed if the rest have been installed already
-        sb.add_cmd("./scripts/feeds update sidn").at("lede-source").if_dir_exists("package/feeds/packages")
-        sb.add_cmd("./scripts/feeds install -a -p sidn").at("lede-source").if_dir_exists("package/feeds/packages")
+        sb.add_cmd("./scripts/feeds update sidn").at("openwrt").if_dir_exists("package/feeds/packages")
+        sb.add_cmd("./scripts/feeds install -a -p sidn").at("openwrt").if_dir_exists("package/feeds/packages")
 
         # Update all feeds if they haven't been installed already
-        sb.add_cmd("./scripts/feeds update -a").at("lede-source").if_dir_not_exists("package/feeds/packages")
-        sb.add_cmd("./scripts/feeds install -a").at("lede-source").if_dir_not_exists("package/feeds/packages")
+        sb.add_cmd("./scripts/feeds update -a").at("openwrt").if_dir_not_exists("package/feeds/packages")
+        sb.add_cmd("./scripts/feeds install -a").at("openwrt").if_dir_not_exists("package/feeds/packages")
 
 
     #
     # Determine target devices
     #
-    target_device = config.get('LEDE', 'target_device')
+    target_device = config.get('OpenWRT', 'target_device')
     if target_device == 'all':
         targets = [ 'gl-ar150', 'gl-mt300a', 'gl-6416' ]
     else:
@@ -151,22 +151,22 @@ def build_steps(config):
         version_string += "_%s" % config.get("Release", "file_suffix")
 
     #
-    # Build the LEDE image(s)
+    # Build the OpenWRT image(s)
     #
     for target in targets:
         valibox_build_tools_dir = get_valibox_build_tools_dir()
-        sb.add_cmd("rm -rf files").at("lede-source")
-        sb.add_cmd("cp -r %s/devices/%s/files ./files" % (valibox_build_tools_dir, target)).at("lede-source")
+        sb.add_cmd("rm -rf files").at("openwrt")
+        sb.add_cmd("cp -r %s/devices/%s/files ./files" % (valibox_build_tools_dir, target)).at("openwrt")
         # Add the current changelog file and a version file
-        sb.add_cmd("mkdir -p ./files/").at("lede-source")
-        sb.add_cmd("cp -r %s ./files/valibox_changelog.txt" % (get_changelog_file(config))).at( "lede-source")
-        sb.add(ValiboxVersionStep(version_string)).at("lede-source")
-        sb.add_cmd("cp %s/devices/%s/diffconfig ./.config" % (valibox_build_tools_dir, target)).at("lede-source")
-        sb.add_cmd("make defconfig").at("lede-source")
+        sb.add_cmd("mkdir -p ./files/").at("openwrt")
+        sb.add_cmd("cp -r %s ./files/valibox_changelog.txt" % (get_changelog_file(config))).at( "openwrt")
+        sb.add(ValiboxVersionStep(version_string)).at("openwrt")
+        sb.add_cmd("cp %s/devices/%s/diffconfig ./.config" % (valibox_build_tools_dir, target)).at("openwrt")
+        sb.add_cmd("make defconfig").at("openwrt")
         build_cmd = "make"
-        if config.get("LEDE", "make_arguments") != "":
-            build_cmd += " %s" % config.get("LEDE", "make_arguments")
-        sb.add_cmd(build_cmd).at("lede-source")
+        if config.get("OpenWRT", "make_arguments") != "":
+            build_cmd += " %s" % config.get("OpenWRT", "make_arguments")
+        sb.add_cmd(build_cmd).at("openwrt")
 
     #
     # And finally, move them into a release directory structure
@@ -174,7 +174,7 @@ def build_steps(config):
     if config.getboolean("Release", "create_release"):
         sb.add(CreateReleaseStep(targets, get_valibox_build_tools_dir(),
                     version_string, get_changelog_file(config),
-                    config.get("Release", "target_directory")).at("lede-source"))
+                    config.get("Release", "target_directory")).at("openwrt"))
 
     return sb.steps
 

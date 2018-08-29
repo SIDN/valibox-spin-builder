@@ -12,6 +12,9 @@ Changelog:
 
 1.6 (Beta)
 IMPORTANT: Version 1.6 (beta) contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+IMPORTANT: Version 1.6 (beta) contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+IMPORTANT: Version 1.6 (beta) contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+- Change base system from LEDE to OpenWRT (18.06.1)
 - Check for Wifi password length during initial setup
 - Better check for referer in Autonta
 - Separation of nginx configuration snippets
