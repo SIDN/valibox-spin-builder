@@ -1,6 +1,8 @@
 - ValiBox Release 1.6 Beta -
 
-IMPORTANT: Version 1.6 (beta) contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+IMPORTANT: Version 1.6 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+IMPORTANT: Version 1.6 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+IMPORTANT: Version 1.6 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
 
 Supports:
  * DNSSEC validation
@@ -10,7 +12,7 @@ Supports:
 
 Changelog:
 
-1.6 (Beta)
+1.6
 IMPORTANT: Version 1.6 (beta) contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
 IMPORTANT: Version 1.6 (beta) contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
 IMPORTANT: Version 1.6 (beta) contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
@@ -20,8 +22,10 @@ IMPORTANT: Version 1.6 (beta) contains configuration changes that require 'Remem
 - Separation of nginx configuration snippets
 - Updated SPIN prototype to 0.7:
   * Web UI now uses lua-minittp
-  * Added 'Download PCAP traffic' 
+  * Added 'Download PCAP traffic' option to the bubble app, you can directly run tcpdump from the web interface now.
   * Added 'protocol' field to mqtt traffic format
+  * Added a web API for configuration and control, see https://github.com/SIDN/spin/blob/master/doc/web_api.md
+  * From the WEB API, there is a very rudimentary option to control firewall rules through profiles (as a stepping stone to MUD which is planned for the next release)
 
 1.5
 - Updated LEDE to 17.01.4 (commit afca23558a2fbfb2cb044ec69bfb9a7447121927)

@@ -25,6 +25,7 @@ config dhcp 'lan'
 	option ra_default '1'
 	option ra_management '1'
 	option dns '192.168.8.1'
+	option force '1'
 
 
 config dhcp 'wan'

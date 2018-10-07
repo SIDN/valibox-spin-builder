@@ -6,13 +6,6 @@ location /spin_graph {
     alias /usr/lib/spin/web_ui/static/spin_api;
     index graph.html;
 }
-# For tcpdump, we want to relax timeouts and disable buffering
-location /spin_api/tcpdump_start {
-    include /etc/nginx/fastcgi_params;
-    fastcgi_pass 127.0.0.1:8002;
-    fastcgi_buffering off;
-    fastcgi_read_timeout 300s;
-}
 
 location /spin_api {
     proxy_set_header        Host $host;
@@ -25,6 +18,6 @@ location /spin_api {
     proxy_set_header Connection 'upgrade';
 
     # Fix the “It appears that your reverse proxy set up is broken" error.
-    proxy_pass          http://localhost:8003;
+    proxy_pass          http://localhost:8002;
     proxy_read_timeout  90;
 }
