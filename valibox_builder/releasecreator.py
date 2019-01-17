@@ -80,6 +80,13 @@ class ReleaseCreator:
                     if imname in line:
                         parts = line.split(" ")
                         self.sums[image[0]] = parts[0] + "\n"
+        with open("bin/targets/x86/64/sha256sums", "r") as sumsfile:
+            for line in sumsfile.readlines():
+                for image in self.images:
+                    imname = image[1].rpartition('/')[2]
+                    if imname in line:
+                        parts = line.split(" ")
+                        self.sums[image[0]] = parts[0] + "\n"
 
     def create_versions_file(self):
         with open("%s/versions.txt" % self.target_dir, "w") as outputfile:
@@ -92,7 +99,12 @@ class ReleaseCreator:
         self.read_sha256sums()
         self.create_target_tree()
         self.copy_files()
-        self.create_versions_file()
+        try:
+            self.create_versions_file()
+        except Exception as exc:
+            print(str(exc))
+            print(str(self.images))
+            return False
         return True
 
 if __name__ == "__main__":

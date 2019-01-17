@@ -44,16 +44,16 @@ DEFAULT_CONFIG = collections.OrderedDict((
     ))),
     ('sidn_openwrt_pkgs', collections.OrderedDict((
                 ('update_git', True),
-                ('source_branch', 'release-1.4'),
+                ('source_branch', 'master'),
     ))),
     ('SPIN', collections.OrderedDict((
-                ('local', False),
+                ('local', True),
                 ('update_git', True),
                 ('source_branch', 'master'),
     ))),
     ('Release', collections.OrderedDict((
-                ('create_release', False),
-                ('version_string', '1.5'),
+                ('create_release', True),
+                ('version_string', '1.6'),
                 ('changelog_file', ''),
                 ('target_directory', 'valibox_release'),
                 ('beta', True),
@@ -136,7 +136,7 @@ def build_steps(config):
     #
     target_device = config.get('OpenWRT', 'target_device')
     if target_device == 'all':
-        targets = [ 'gl-ar150', 'gl-mt300a', 'gl-6416' ]
+        targets = [ 'gl-ar150', 'gl-mt300a', 'gl-6416', 'innotek-gmbh-virtualbox' ]
     else:
         targets = [ target_device ]
 
@@ -167,6 +167,13 @@ def build_steps(config):
         if config.get("OpenWRT", "make_arguments") != "":
             build_cmd += " %s" % config.get("OpenWRT", "make_arguments")
         sb.add_cmd(build_cmd).at("openwrt")
+
+        # Some targets require a few extra steps
+        # Note: there are more additional steps for a nice user experiece;
+        # we should provide a vdi for virtualbox for instance; but those 
+        # steps are more related to updating the website, i think
+        if target == 'innotek-gmbh-virtualbox':
+            sb.add_cmd("gunzip openwrt-x86-64-combined-squashfs.img.gz").at("openwrt/bin/targets/x86/64/")
 
     #
     # And finally, move them into a release directory structure
@@ -208,7 +215,7 @@ def main():
         builder.last_step = 1
         builder.perform_steps()
     elif args.edit:
-        EDITOR = os.environ.get('EDITOR','vim')
+        EDITOR = os.environ.get('EDITOR','vi')
         config.save_config()
         subprocess.call([EDITOR, config.config_file])
     elif args.print_steps:
