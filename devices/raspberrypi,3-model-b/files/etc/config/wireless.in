@@ -1,20 +1,17 @@
-# Is there some convention
-# for wifi-ap in virtualbox?
-# Is that used in the first place?
 
 config wifi-device 'radio0'
 	option type 'mac80211'
+	option channel '11'
 	option hwmode '11g'
-	option path 'platform/ar933x_wmac'
+	option path 'platform/soc/3f300000.mmc/mmc_host/mmc1/mmc1:0001/mmc1:0001:1'
 	option htmode 'HT20'
-	option channel '10'
-	option txpower '30'
-	option country 'US'
+	option country '00'
+	option legacy_rates '1'
 
-config wifi-iface
+config wifi-iface 'default_radio0'
 	option device 'radio0'
 	option mode 'ap'
-        option encryption 'psk2'
-        option key 'goodlife'
+	option encryption 'psk2'
+	option key 'goodlife'
 	option ssid 'SIDN-ValiBox-XHWADDRX'
-    option network 'lan'
+	option network 'lan'
