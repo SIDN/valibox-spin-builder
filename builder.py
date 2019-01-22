@@ -114,7 +114,7 @@ def build_steps(config):
         sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "/tmp/spin-0.7-beta.tar.gz"))
 
     #
-    # Update general package feeds in OpenWRT 
+    # Update general package feeds in OpenWRT
     #
     sb.add(UpdateFeedsConf("openwrt", sidn_pkg_feed_dir))
     if config.getboolean('OpenWRT', 'update_all_feeds'):
@@ -136,7 +136,7 @@ def build_steps(config):
     #
     target_device = config.get('OpenWRT', 'target_device')
     if target_device == 'all':
-        targets = [ 'gl-ar150', 'gl-mt300a', 'gl-6416', 'innotek-gmbh-virtualbox' ]
+        targets = [ 'gl-ar150', 'gl-mt300a', 'gl-6416', 'innotek-gmbh-virtualbox', 'raspberrypi,3-model-b' ]
     else:
         targets = [ target_device ]
 
@@ -170,10 +170,12 @@ def build_steps(config):
 
         # Some targets require a few extra steps
         # Note: there are more additional steps for a nice user experiece;
-        # we should provide a vdi for virtualbox for instance; but those 
+        # we should provide a vdi for virtualbox for instance; but those
         # steps are more related to updating the website, i think
         if target == 'innotek-gmbh-virtualbox':
-            sb.add_cmd("gunzip openwrt-x86-64-combined-squashfs.img.gz").at("openwrt/bin/targets/x86/64/")
+            sb.add_cmd("gunzip -fk openwrt-x86-64-combined-squashfs.img.gz").at("openwrt/bin/targets/x86/64/")
+        if target == 'raspberrypi,3-model-b':
+            sb.add_cmd("gunzip -fk openwrt-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz").at("openwrt/bin/targets/brcm2708/bcm2710/")
 
     #
     # And finally, move them into a release directory structure

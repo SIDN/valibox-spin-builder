@@ -1,3 +1,3 @@
 #!/bin/sh
 
-/sbin/ifconfig br-lan | grep HWaddr | head -1 | sed 's/^.*\(.\).\(.\)\(.\)..$/\1\2\3/' | awk '{print tolower($0)}'
+/sbin/ifconfig -a | grep HWaddr | tail -1 | sed 's/^.*\(.\).\(.\)\(.\)..$/\1\2\3/' | awk '{print tolower($0)}'

@@ -19,6 +19,7 @@ import datetime
 import os
 import shutil
 import sys
+import csv
 
 class ReleaseEnvironmentError(Exception):
     pass
@@ -43,13 +44,19 @@ class ReleaseCreator:
                 raise ReleaseEnvironmentError("Image information file does not exist: %s" % info_file)
 
             with open(info_file) as inf:
-                line = inf.readline()
-                parts = line.split(",")
-                if len(parts) != 2:
-                    raise ReleaseEnvironmentError("Image information file (%s) does not contain <name>,<path>" % info_file)
-                image_name = parts[0].strip()
-                image_file = parts[1].strip()
-                self.images.append((image_name, image_file))
+                reader = csv.reader(inf, delimiter=',', quotechar='"')
+                for parts in reader:
+                    #print("[XX] PARTS: %s" % str(parts))
+                    #print("[XX] PARTS0: %s" % str(parts[0]))
+                    #print("[XX] PARTS1: %s" % str(parts[1]))
+                    #parts = line.split(",")
+                    if len(parts) != 2:
+                        raise ReleaseEnvironmentError("Image information file (%s) does not contain <name>,<path>" % info_file)
+                    image_name = parts[0].strip()
+                    image_file = parts[1].strip()
+                    #print("[XX] IMAGE NAME: '%s'" % image_name)
+                    #print("[XX] IMAGE FILE: '%s'" % image_file)
+                    self.images.append((image_name, image_file))
 
     def create_target_tree(self):
         if not os.path.exists(self.target_dir):
@@ -65,28 +72,39 @@ class ReleaseCreator:
             shutil.copyfile(self.changelog_filename, "%s/%s/%s.info.txt" % (self.target_dir, image[0], self.version))
 
     def read_sha256sums(self):
-        with open("bin/targets/ar71xx/generic/sha256sums", "r") as sumsfile:
-            for line in sumsfile.readlines():
-                for image in self.images:
-                    imname = image[1].rpartition('/')[2]
-                    if imname in line:
-                        parts = line.split(" ")
-                        print(parts)
-                        self.sums[image[0]] = parts[0] + "\n"
-        with open("bin/targets/ramips/mt7620/sha256sums", "r") as sumsfile:
-            for line in sumsfile.readlines():
-                for image in self.images:
-                    imname = image[1].rpartition('/')[2]
-                    if imname in line:
-                        parts = line.split(" ")
-                        self.sums[image[0]] = parts[0] + "\n"
-        with open("bin/targets/x86/64/sha256sums", "r") as sumsfile:
-            for line in sumsfile.readlines():
-                for image in self.images:
-                    imname = image[1].rpartition('/')[2]
-                    if imname in line:
-                        parts = line.split(" ")
-                        self.sums[image[0]] = parts[0] + "\n"
+        if 'all' in self.targets or 'gl-ar150' in self.targets:
+            with open("bin/targets/ar71xx/generic/sha256sums", "r") as sumsfile:
+                for line in sumsfile.readlines():
+                    for image in self.images:
+                        imname = image[1].rpartition('/')[2]
+                        if imname in line:
+                            parts = line.split(" ")
+                            print(parts)
+                            self.sums[image[0]] = parts[0] + "\n"
+        if 'all' in self.targets or 'gl-mt300a' in self.targets:
+            with open("bin/targets/ramips/mt7620/sha256sums", "r") as sumsfile:
+                for line in sumsfile.readlines():
+                    for image in self.images:
+                        imname = image[1].rpartition('/')[2]
+                        if imname in line:
+                            parts = line.split(" ")
+                            self.sums[image[0]] = parts[0] + "\n"
+        if 'all' in self.targets or 'innotek-gmbh-virtualbox' in self.targets:
+            with open("bin/targets/x86/64/sha256sums", "r") as sumsfile:
+                for line in sumsfile.readlines():
+                    for image in self.images:
+                        imname = image[1].rpartition('/')[2]
+                        if imname in line:
+                            parts = line.split(" ")
+                            self.sums[image[0]] = parts[0] + "\n"
+        if 'all' in self.targets or 'raspberrypi,3-model-b' in self.targets:
+            with open("bin/targets/brcm2708/bcm2710/sha256sums", "r") as sumsfile:
+                for line in sumsfile.readlines():
+                    for image in self.images:
+                        imname = image[1].rpartition('/')[2]
+                        if imname in line:
+                            parts = line.split(" ")
+                            self.sums[image[0]] = parts[0] + "\n"
 
     def create_versions_file(self):
         with open("%s/versions.txt" % self.target_dir, "w") as outputfile:
