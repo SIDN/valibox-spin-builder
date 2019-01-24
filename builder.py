@@ -102,7 +102,7 @@ def build_steps(config):
         # Create a local release tarball from the checkout, and
         # update the PKGHASH and location in the package feed data
         # TODO: there are a few hardcoded values assumed here and in the next few steps
-        sb.add_cmd("./create_tarball.sh -n").at("spin")
+        sb.add_cmd("./scripts/create_tarball.sh -n").at("spin")
         sb.add_cmd("rm -f dl/spin-*.tar.gz").at("openwrt")
         sb.add_cmd("rm -f dl/lua-minittp-*.tar.xz").at("openwrt")
 
