@@ -8,7 +8,6 @@ CONFIG_TOOLCHAINOPTS=y
 CONFIG_BUSYBOX_CUSTOM=y
 CONFIG_CCACHE=y
 CONFIG_DEBUG=y
-# CONFIG_DRIVER_11AC_SUPPORT is not set
 # CONFIG_DRIVER_WEXT_SUPPORT is not set
 CONFIG_INCLUDE_CONFIG=y
 CONFIG_LIBCURL_COOKIES=y
@@ -20,6 +19,7 @@ CONFIG_LIBCURL_NO_SMB="!"
 CONFIG_LIBCURL_PROXY=y
 CONFIG_MOSQUITTO_LWS=y
 CONFIG_MOSQUITTO_PASSWD=y
+CONFIG_NGINX_HEADERS_MORE=y
 CONFIG_NGINX_HTTP_ACCESS=y
 CONFIG_NGINX_HTTP_AUTH_BASIC=y
 CONFIG_NGINX_HTTP_AUTOINDEX=y
@@ -69,8 +69,6 @@ CONFIG_PACKAGE_ca-certificates=y
 # CONFIG_PACKAGE_comgt is not set
 # CONFIG_PACKAGE_comgt-directip is not set
 # CONFIG_PACKAGE_comgt-ncm is not set
-CONFIG_PACKAGE_conntrack=y
-CONFIG_PACKAGE_conntrackd=y
 CONFIG_PACKAGE_coreutils=y
 CONFIG_PACKAGE_coreutils-stat=y
 CONFIG_PACKAGE_curl=y
@@ -184,7 +182,6 @@ CONFIG_PACKAGE_iptables-mod-nfqueue=y
 # CONFIG_PACKAGE_kmod-gpio-nxp-74hc164 is not set
 # CONFIG_PACKAGE_kmod-gpio-pca953x is not set
 # CONFIG_PACKAGE_kmod-gpio-pcf857x is not set
-# CONFIG_PACKAGE_kmod-gre6 is not set
 # CONFIG_PACKAGE_kmod-hermes is not set
 # CONFIG_PACKAGE_kmod-hermes-pci is not set
 # CONFIG_PACKAGE_kmod-hermes-plx is not set
@@ -204,7 +201,6 @@ CONFIG_PACKAGE_iptables-mod-nfqueue=y
 # CONFIG_PACKAGE_kmod-input-matrixkmap is not set
 # CONFIG_PACKAGE_kmod-input-polldev is not set
 # CONFIG_PACKAGE_kmod-input-uinput is not set
-# CONFIG_PACKAGE_kmod-ip6-tunnel is not set
 # CONFIG_PACKAGE_kmod-ipip is not set
 # CONFIG_PACKAGE_kmod-ipsec is not set
 # CONFIG_PACKAGE_kmod-ipt-account is not set
@@ -230,7 +226,6 @@ CONFIG_PACKAGE_kmod-ipt-nfqueue=y
 # CONFIG_PACKAGE_kmod-ipt-quota2 is not set
 # CONFIG_PACKAGE_kmod-ipt-sysrq is not set
 # CONFIG_PACKAGE_kmod-ipt-tarpit is not set
-# CONFIG_PACKAGE_kmod-iptunnel6 is not set
 # CONFIG_PACKAGE_kmod-isdn4linux is not set
 # CONFIG_PACKAGE_kmod-iwl-legacy is not set
 # CONFIG_PACKAGE_kmod-iwl3945 is not set
@@ -260,7 +255,6 @@ CONFIG_PACKAGE_kmod-ipt-nfqueue=y
 # CONFIG_PACKAGE_kmod-libertas-sdio is not set
 # CONFIG_PACKAGE_kmod-libertas-spi is not set
 # CONFIG_PACKAGE_kmod-libertas-usb is not set
-# CONFIG_PACKAGE_kmod-libphy is not set
 # CONFIG_PACKAGE_kmod-loop is not set
 # CONFIG_PACKAGE_kmod-lp is not set
 # CONFIG_PACKAGE_kmod-mac80211-hwsim is not set
@@ -273,7 +267,6 @@ CONFIG_PACKAGE_kmod-ipt-nfqueue=y
 # CONFIG_PACKAGE_kmod-mppe is not set
 # CONFIG_PACKAGE_kmod-mrf24j40 is not set
 # CONFIG_PACKAGE_kmod-mt76 is not set
-# CONFIG_PACKAGE_kmod-mt76-core is not set
 # CONFIG_PACKAGE_kmod-mt7601u is not set
 # CONFIG_PACKAGE_kmod-mt7603 is not set
 # CONFIG_PACKAGE_kmod-mt76x2 is not set
@@ -290,13 +283,10 @@ CONFIG_PACKAGE_kmod-ipt-nfqueue=y
 # CONFIG_PACKAGE_kmod-net-rtl8192su is not set
 # CONFIG_PACKAGE_kmod-netem is not set
 CONFIG_PACKAGE_kmod-nf-conntrack-netlink=y
-# CONFIG_PACKAGE_kmod-nf-nathelper is not set
-# CONFIG_PACKAGE_kmod-nf-nathelper-extra is not set
 CONFIG_PACKAGE_kmod-nfnetlink=y
 CONFIG_PACKAGE_kmod-nfnetlink-log=y
 CONFIG_PACKAGE_kmod-nfnetlink-queue=y
 CONFIG_PACKAGE_kmod-nft-core=y
-# CONFIG_PACKAGE_kmod-nft-nat is not set
 # CONFIG_PACKAGE_kmod-nft-nat6 is not set
 # CONFIG_PACKAGE_kmod-nlmon is not set
 # CONFIG_PACKAGE_kmod-nls-cp1250 is not set
@@ -335,7 +325,6 @@ CONFIG_PACKAGE_kmod-nft-core=y
 # CONFIG_PACKAGE_kmod-pptp is not set
 # CONFIG_PACKAGE_kmod-r6040 is not set
 # CONFIG_PACKAGE_kmod-r8169 is not set
-# CONFIG_PACKAGE_kmod-random-core is not set
 # CONFIG_PACKAGE_kmod-rt2400-pci is not set
 # CONFIG_PACKAGE_kmod-rt2500-pci is not set
 # CONFIG_PACKAGE_kmod-rt2500-usb is not set
@@ -360,7 +349,6 @@ CONFIG_PACKAGE_kmod-nft-core=y
 # CONFIG_PACKAGE_kmod-scsi-tape is not set
 # CONFIG_PACKAGE_kmod-sctp is not set
 # CONFIG_PACKAGE_kmod-sdhci is not set
-# CONFIG_PACKAGE_kmod-serial-8250 is not set
 # CONFIG_PACKAGE_kmod-siit is not set
 # CONFIG_PACKAGE_kmod-sis190 is not set
 # CONFIG_PACKAGE_kmod-sis900 is not set
@@ -377,7 +365,6 @@ CONFIG_PACKAGE_kmod-nft-core=y
 # CONFIG_PACKAGE_kmod-spi-ks8995 is not set
 # CONFIG_PACKAGE_kmod-spi-vsc7385 is not set
 # CONFIG_PACKAGE_kmod-ssb is not set
-# CONFIG_PACKAGE_kmod-swconfig is not set
 # CONFIG_PACKAGE_kmod-switch-ip17xx is not set
 # CONFIG_PACKAGE_kmod-switch-mvsw61xx is not set
 # CONFIG_PACKAGE_kmod-switch-rtl8366-smi is not set
@@ -468,11 +455,15 @@ CONFIG_PACKAGE_luasec=y
 CONFIG_PACKAGE_luasocket=y
 CONFIG_PACKAGE_luci=y
 CONFIG_PACKAGE_luci-app-firewall=y
+CONFIG_PACKAGE_luci-app-opkg=y
 CONFIG_PACKAGE_luci-base=y
 CONFIG_PACKAGE_luci-lib-ip=y
 CONFIG_PACKAGE_luci-lib-jsonc=y
 CONFIG_PACKAGE_luci-lib-nixio=y
 CONFIG_PACKAGE_luci-mod-admin-full=y
+CONFIG_PACKAGE_luci-mod-network=y
+CONFIG_PACKAGE_luci-mod-status=y
+CONFIG_PACKAGE_luci-mod-system=y
 CONFIG_PACKAGE_luci-proto-ipv6=y
 CONFIG_PACKAGE_luci-proto-ppp=y
 CONFIG_PACKAGE_luci-ssl=y
@@ -518,11 +509,6 @@ CONFIG_PACKAGE_uhttpd-mod-lua=y
 CONFIG_PACKAGE_uhttpd-mod-ubus=y
 # CONFIG_PACKAGE_umbim is not set
 # CONFIG_PACKAGE_uqmi is not set
-CONFIG_PACKAGE_valgrind=y
-CONFIG_PACKAGE_valgrind-cachegrind=y
-CONFIG_PACKAGE_valgrind-callgrind=y
-CONFIG_PACKAGE_valgrind-drd=y
-CONFIG_PACKAGE_valgrind-helgrind=y
 CONFIG_PACKAGE_vim-full=y
 # CONFIG_PACKAGE_wl12xx-firmware is not set
 # CONFIG_PACKAGE_wl18xx-firmware is not set

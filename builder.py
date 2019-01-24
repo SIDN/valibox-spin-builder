@@ -163,6 +163,8 @@ def build_steps(config):
         sb.add(ValiboxVersionStep(version_string)).at("openwrt")
         sb.add_cmd("cp %s/devices/%s/diffconfig ./.config" % (valibox_build_tools_dir, target)).at("openwrt")
         sb.add_cmd("make defconfig").at("openwrt")
+        # Some packages handle multi-arch building really badly, so we clean them all for each target
+        sb.add_cmd("make package/clean").at("openwrt")
         build_cmd = "make"
         if config.get("OpenWRT", "make_arguments") != "":
             build_cmd += " %s" % config.get("OpenWRT", "make_arguments")
