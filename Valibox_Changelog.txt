@@ -1,4 +1,4 @@
-- ValiBox Release 1.6 Beta -
+- ValiBox Release 1.7 Beta -
 
 IMPORTANT: Version 1.6 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
 IMPORTANT: Version 1.6 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
@@ -8,9 +8,19 @@ Supports:
  * DNSSEC validation
  * User-friendly negative trust anchor management
  * Full configurability through OpenWRT
- * Includes SPIN prototype (0.6)
+ * Includes SPIN prototype (0.8 beta)
 
 Changelog:
+
+1.7-Beta
+- Added VirtualBox (innotek-gmbh-virtualbox) to the list of supported builds (experimental)
+- Added Raspberry Pi 3 (raspberry,3-model-b) to the list of supported builds (experimental)
+- Removed GL-Inet 6416 from the list of supported builds
+- Updated SPIN to 0.8-beta:
+  * Added initial version of responsive SPA front-end (http://valibox./spin)
+  * Added very early profile concept
+  * Added PoC-tool 'pcap-reader'
+  * Small updates and bugfixes in visualiser
 
 1.6
 IMPORTANT: Version 1.6 (beta) contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
