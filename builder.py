@@ -111,7 +111,7 @@ def build_steps(config):
         sidn_pkg_feed_dir = sidn_pkg_feed_dir + "_local"
         sb.add_cmd("git checkout-index -a -f --prefix=../%s/" % sidn_pkg_feed_dir).at(orig_sidn_pkg_feed_dir)
 
-        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "/tmp/spin-0.7-beta.tar.gz"))
+        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "/tmp/spin-0.8-beta.tar.gz"))
 
     #
     # Update general package feeds in OpenWRT
@@ -175,10 +175,10 @@ def build_steps(config):
         # Note: there are more additional steps for a nice user experiece;
         # we should provide a vdi for virtualbox for instance; but those
         # steps are more related to updating the website, i think
-        if target == 'innotek-gmbh-virtualbox':
-            sb.add_cmd("gunzip -fk openwrt-x86-64-combined-squashfs.img.gz").at("openwrt/bin/targets/x86/64/")
-        if target == 'raspberrypi,3-model-b':
-            sb.add_cmd("gunzip -fk openwrt-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz").at("openwrt/bin/targets/brcm2708/bcm2710/")
+        #if target == 'innotek-gmbh-virtualbox':
+        #    sb.add_cmd("gunzip -fk openwrt-x86-64-combined-squashfs.img.gz").at("openwrt/bin/targets/x86/64/")
+        #if target == 'raspberrypi,3-model-b':
+        #    sb.add_cmd("gunzip -fk openwrt-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz").at("openwrt/bin/targets/brcm2708/bcm2710/")
 
     #
     # And finally, move them into a release directory structure
