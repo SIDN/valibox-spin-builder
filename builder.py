@@ -111,7 +111,7 @@ def build_steps(config):
         sidn_pkg_feed_dir = sidn_pkg_feed_dir + "_local"
         sb.add_cmd("git checkout-index -a -f --prefix=../%s/" % sidn_pkg_feed_dir).at(orig_sidn_pkg_feed_dir)
 
-        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "/tmp/spin-0.8-beta.tar.gz"))
+        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "/tmp/spin_release_file/spin-0.8-beta.tar.gz"))
 
     #
     # Update general package feeds in OpenWRT
