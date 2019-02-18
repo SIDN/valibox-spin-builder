@@ -61,6 +61,44 @@ DEFAULT_CONFIG = collections.OrderedDict((
     ))),
 ))
 
+def build_steps_spin_only(config):
+    sb = StepBuilder()
+
+    if config.getboolean("SPIN", "local"):
+        if config.getboolean("SPIN", "update_git"):
+            sb.add_cmd("git clone https://github.com/SIDN/spin").if_dir_not_exists("spin")
+
+            # only relevant if we use a local build of spin
+            sb.add_cmd("git fetch").at("spin")
+            sb.add(GitBranchStep(config.get("SPIN", "source_branch"), "spin"))
+            sb.add_cmd("git pull").at("spin").may_fail()
+
+        # Create a local release tarball from the checkout, and
+        # update the PKGHASH and location in the package feed data
+        # TODO: there are a few hardcoded values assumed here and in the next few steps
+        sb.add_cmd("./scripts/create_tarball.sh -n").at("spin")
+        sb.add_cmd("rm -f dl/spin-*.tar.gz").at("openwrt")
+ 
+        # Set that in the pkg feed data; we do not want to change the repository, so we make a copy and update that
+        sidn_pkg_feed_dir = "sidn_openwrt_pkgs"
+        orig_sidn_pkg_feed_dir = sidn_pkg_feed_dir
+        sidn_pkg_feed_dir = sidn_pkg_feed_dir + "_local"
+        sb.add_cmd("git checkout-index -a -f --prefix=../%s/" % sidn_pkg_feed_dir).at(orig_sidn_pkg_feed_dir)
+
+        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "/tmp/spin_release_file/spin-0.8-beta.tar.gz"))
+
+    sb.add_cmd("./scripts/feeds update sidn").at("openwrt").if_dir_exists("package/feeds/packages")
+    sb.add_cmd("./scripts/feeds install -a -p sidn").at("openwrt").if_dir_exists("package/feeds/packages")
+
+    #build_cmd = "make package/spin/compile -j1 V=s"
+    build_cmd = "make package/spin/compile"
+    if config.get("OpenWRT", "make_arguments") != "":
+        build_cmd += " %s" % config.get("OpenWRT", "make_arguments")
+    sb.add_cmd(build_cmd).at("openwrt")
+
+    return sb.steps
+
+
 def build_steps(config):
     sb = StepBuilder()
 
@@ -209,12 +247,23 @@ def main():
     parser.add_argument('-c', '--config', default=BuildConfig.CONFIG_FILE, help="Specify the build config file to use (defaults to %s)" % BuildConfig.CONFIG_FILE)
     #parser.add_argument('--check', action="store_true", help='Check the build configuration options')
     parser.add_argument('--print-steps', action="store_true", help='Print all the steps that would be performed')
+    parser.add_argument('-s', '--spin-only', action="store_true", help='Only rebuild the SPIN package')
     args = parser.parse_args()
 
     config = BuildConfig(args.config, DEFAULT_CONFIG)
-    builder = Builder(build_steps(config))
+    if args.spin_only:
+        builder = Builder(build_steps_spin_only(config))
+    else:
+        builder = Builder(build_steps(config))
 
     if args.build:
+        if not os.path.exists(args.config):
+            print("Error: will not build unless config is specified (use -e and save the file)")
+            sys.exit(1)
+        builder.perform_steps()
+    elif args.spin_only:
+        # always restart
+        builder.last_step = 1
         builder.perform_steps()
     elif args.restart:
         builder.last_step = 1
