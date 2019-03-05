@@ -6,7 +6,7 @@ config interface 'loopback'
 	option netmask '255.0.0.0'
 
 config globals 'globals'
-	option ula_prefix 'fd42:3e7f:b9ab::/48'
+	option ula_prefix 'fd48:430c:f4bc::/48'
 
 config interface 'lan'
 	option type 'bridge'
@@ -18,7 +18,6 @@ config interface 'lan'
 
 config device 'lan_dev'
 	option name 'eth0.1'
-	option macaddr 'e4:95:6e:40:f0:49'
 
 config interface 'wan'
 	option ifname 'eth0.2'
@@ -26,7 +25,6 @@ config interface 'wan'
 
 config device 'wan_dev'
 	option name 'eth0.2'
-	option macaddr 'e4:95:6e:40:f0:4a'
 
 config interface 'wan6'
 	option ifname 'eth0.2'

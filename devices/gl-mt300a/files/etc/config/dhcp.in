@@ -13,7 +13,14 @@ config dnsmasq
 	option leasefile '/tmp/dhcp.leases'
 	option resolvfile '/tmp/resolv.conf.auto'
 	option localservice '1'
-	option port '53535'
+	#option port 0
+	# We forward queries to the local unbound
+	# instance
+	list server '127.0.0.1#5353'
+	# Let unbound do the protection
+	option dnssec '0'
+	option rebind_protection '0'
+
 
 config dhcp 'lan'
 	option interface 'lan'
