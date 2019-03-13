@@ -16,10 +16,19 @@ Changelog:
 - Added VirtualBox (innotek-gmbh-virtualbox) to the list of supported builds (experimental)
 - Added Raspberry Pi 3 (raspberry,3-model-b) to the list of supported builds (experimental)
 - Removed GL-Inet 6416 from the list of supported builds
-- Updated SPIN to 0.8-beta:
+- Updated OpenWRT to v18.06.2
+- Updated SPIN to 0.9-beta:
+  * Removed kernel module and replaced with conntrack/nflog/nfqueue implementation
+  * Added internal module registration and callback architecture
+  * Made (mqtt) commands more consistent (removed 'filter' and 'except')
+  * Internal node cache is now regularly cleaned
+  * Added SPIN configuration support (direct and with UCI)
+  * Added operational statistics (published in mqtt SPIN/stat channel)
   * Added initial version of responsive SPA front-end (http://valibox./spin)
   * Added very early profile concept
   * Added PoC-tool 'pcap-reader'
+  * Added PoC-tool 'peak-detction'
+  * Fixed a memory leak
   * Small updates and bugfixes in visualiser
 
 1.6
