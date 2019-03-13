@@ -1,8 +1,8 @@
 - ValiBox Release 1.7 Beta -
 
-IMPORTANT: Version 1.6 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
-IMPORTANT: Version 1.6 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
-IMPORTANT: Version 1.6 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+IMPORTANT: Version 1.6 and 1.7 contain configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+IMPORTANT: Version 1.6 and 1.7 contain configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+IMPORTANT: Version 1.6 and 1.7 contain configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
 
 Supports:
  * DNSSEC validation
