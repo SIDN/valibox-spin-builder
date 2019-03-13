@@ -97,6 +97,24 @@ class UpdatePkgMakefile(Step):
                 # print error?
                 return False
             hash_str = hash_line.split(" ")[0]
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
+            print("[XX] HASH STR: '%s'" % hash_str)
 
             # Read the makefile, and update it in a tmp file
             # should we use mktempfile for this, or is this ok?
@@ -104,7 +122,7 @@ class UpdatePkgMakefile(Step):
                 with open(self.makefile + ".tmp", "w") as outfile:
                     for line in infile.readlines():
                         if line.startswith("PKG_VERSION:="):
-                            outfile.write("PKG_VERSION:=0.9-beta\n")
+                            outfile.write("PKG_VERSION:=0.8-beta\n")
                         elif line.startswith("PKG_BUILD_DIR:="):
                             outfile.write("PKG_BUILD_DIR:=spin-0.9-beta\n")
                         elif line.startswith("PKG_SOURCE:="):
