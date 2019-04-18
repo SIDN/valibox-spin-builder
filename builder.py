@@ -174,7 +174,7 @@ def build_steps(config):
     #
     target_device = config.get('OpenWRT', 'target_device')
     if target_device == 'all':
-        targets = [ 'gl-ar150', 'gl-mt300a', 'gl-6416', 'innotek-gmbh-virtualbox', 'raspberrypi,3-model-b' ]
+        targets = [ 'gl-ar150', 'gl-mt300a', 'innotek-gmbh-virtualbox', 'raspberrypi,3-model-b' ]
     else:
         targets = [ target_device ]
 
