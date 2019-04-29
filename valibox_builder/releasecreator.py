@@ -68,7 +68,11 @@ class ReleaseCreator:
 
     def copy_files(self):
         for image in self.images:
-            shutil.copyfile("bin/targets/%s" % image[1], "%s/%s/sidn_valibox_%s_%s.bin" % (self.target_dir, image[0], image[0], self.version))
+            extension = "bin"
+            if image[0] == "raspberrypi,3-model-b":
+                print("[XX]RASPI!")
+                extension = 'bin.gz'
+            shutil.copyfile("bin/targets/%s" % image[1], "%s/%s/sidn_valibox_%s_%s.%s" % (self.target_dir, image[0], image[0], self.version, extension))
             shutil.copyfile(self.changelog_filename, "%s/%s/%s.info.txt" % (self.target_dir, image[0], self.version))
 
     def read_sha256sums(self):
@@ -109,8 +113,12 @@ class ReleaseCreator:
     def create_versions_file(self):
         with open("%s/versions.txt" % self.target_dir, "w") as outputfile:
             for image in self.images:
-                outputfile.write("%s %s %s/sidn_valibox_%s_%s.bin %s/%s.info.txt %s" %
-                    (image[0], self.version, image[0], image[0], self.version, image[0], self.version, self.sums[image[0]]))
+                extension = 'bin'
+                if image[0] == "raspberrypi,3-model-b":
+                    print("[XX]RASPI!")
+                    extension = 'bin.gz'
+                outputfile.write("%s %s %s/sidn_valibox_%s_%s.%s %s/%s.info.txt %s" %
+                    (image[0], self.version, image[0], image[0], self.version, extension, image[0], self.version, self.sums[image[0]]))
 
     def create_release(self):
         self.check_environment()

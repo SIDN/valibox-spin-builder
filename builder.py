@@ -85,7 +85,7 @@ def build_steps_spin_only(config):
         sidn_pkg_feed_dir = sidn_pkg_feed_dir + "_local"
         sb.add_cmd("git checkout-index -a -f --prefix=../%s/" % sidn_pkg_feed_dir).at(orig_sidn_pkg_feed_dir)
 
-        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "/tmp/spin_release_file/spin-0.9-beta.tar.gz"))
+        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "/tmp/spin_release_file/spin-0.9.tar.gz"))
 
     sb.add_cmd("./scripts/feeds update sidn").at("openwrt").if_dir_exists("package/feeds/packages")
     sb.add_cmd("./scripts/feeds install -a -p sidn").at("openwrt").if_dir_exists("package/feeds/packages")
@@ -149,7 +149,7 @@ def build_steps(config):
         sidn_pkg_feed_dir = sidn_pkg_feed_dir + "_local"
         sb.add_cmd("git checkout-index -a -f --prefix=../%s/" % sidn_pkg_feed_dir).at(orig_sidn_pkg_feed_dir)
 
-        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "/tmp/spin_release_file/spin-0.9-beta.tar.gz"))
+        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "/tmp/spin_release_file/spin-0.9.tar.gz"))
 
     #
     # Update general package feeds in OpenWRT
@@ -202,8 +202,8 @@ def build_steps(config):
         sb.add_cmd("cp %s/devices/%s/diffconfig ./.config" % (valibox_build_tools_dir, target)).at("openwrt")
         sb.add_cmd("make defconfig").at("openwrt")
         # Some packages handle multi-arch building really badly, so we clean them all for each target
-        if len(targets) > 1:
-            sb.add_cmd("make package/clean").at("openwrt")
+        #if len(targets) > 1:
+        #    sb.add_cmd("make package/clean").at("openwrt")
         build_cmd = "make"
         if config.get("OpenWRT", "make_arguments") != "":
             build_cmd += " %s" % config.get("OpenWRT", "make_arguments")
@@ -215,8 +215,9 @@ def build_steps(config):
         # steps are more related to updating the website, i think
         #if target == 'innotek-gmbh-virtualbox':
         #    sb.add_cmd("gunzip -fk openwrt-x86-64-combined-squashfs.img.gz").at("openwrt/bin/targets/x86/64/")
-        #if target == 'raspberrypi,3-model-b':
-        #    sb.add_cmd("gunzip -fk openwrt-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz").at("openwrt/bin/targets/brcm2708/bcm2710/")
+	# For raspberry, we want to add '.gz' to the final name
+        if target == 'raspberrypi,3-model-b':
+            sb.add_cmd("gunzip -fk openwrt-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz").at("openwrt/bin/targets/brcm2708/bcm2710/")
 
     #
     # And finally, move them into a release directory structure

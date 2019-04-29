@@ -1,4 +1,4 @@
-- ValiBox Release 1.7 Beta -
+- ValiBox Release 1.7 -
 
 IMPORTANT: Version 1.6 and 1.7 contain configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
 IMPORTANT: Version 1.6 and 1.7 contain configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
@@ -12,10 +12,11 @@ Supports:
 
 Changelog:
 
-1.7-Beta
+1.7
 - Added VirtualBox (innotek-gmbh-virtualbox) to the list of supported builds (experimental)
 - Added Raspberry Pi 3 (raspberry,3-model-b) to the list of supported builds (experimental)
 - Removed GL-Inet 6416 from the list of supported builds
+- Fixed absolute links (using IP address instead of 'valibox.' should work now)
 - Updated OpenWRT to v18.06.2
 - Updated SPIN to 0.9-beta:
   * Removed kernel module and replaced with conntrack/nflog/nfqueue implementation
