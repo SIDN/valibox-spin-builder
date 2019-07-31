@@ -64,6 +64,15 @@ DEFAULT_CONFIG = collections.OrderedDict((
 def build_steps_spin_only(config):
     sb = StepBuilder()
 
+    #
+    # Determine target devices
+    #
+    target_device = config.get('OpenWRT', 'target_device')
+    if target_device == 'all':
+        targets = [ 'gl-ar150', 'gl-mt300a', 'innotek-gmbh-virtualbox', 'raspberrypi,3-model-b', 'ar71xx', 'mt7622', 'ipq40xx', 'ipq806x' ]
+    else:
+        targets = [ target_device ]
+
     if config.getboolean("SPIN", "local"):
         if config.getboolean("SPIN", "update_git"):
             sb.add_cmd("git clone https://github.com/SIDN/spin").if_dir_not_exists("spin")
@@ -91,10 +100,17 @@ def build_steps_spin_only(config):
     sb.add_cmd("./scripts/feeds install -a -p sidn").at("openwrt").if_dir_exists("package/feeds/packages")
 
     #build_cmd = "make package/spin/compile -j1 V=s"
-    build_cmd = "make package/spin/compile"
-    if config.get("OpenWRT", "make_arguments") != "":
-        build_cmd += " %s" % config.get("OpenWRT", "make_arguments")
-    sb.add_cmd(build_cmd).at("openwrt")
+    valibox_build_tools_dir = get_valibox_build_tools_dir()
+    for target in targets:
+        sb.add_cmd("cp %s/architectures/%s/diffconfig ./.config" % (valibox_build_tools_dir, target)).at("openwrt")
+        sb.add_cmd("make defconfig").at("openwrt")
+        sb.add_cmd("make toolchain/compile").at("openwrt")
+        sb.add_cmd("make target/linux/compile").at("openwrt")
+        build_cmd = "make package/spin/compile"
+        if config.get("OpenWRT", "make_arguments") != "":
+            build_cmd += " %s" % config.get("OpenWRT", "make_arguments")
+        sb.add_cmd(build_cmd).at("openwrt")
+        sb.add_cmd("make package/install").at("openwrt")
 
     return sb.steps
 
@@ -154,6 +170,7 @@ def build_steps(config):
     #
     # Update general package feeds in OpenWRT
     #
+
     sb.add(UpdateFeedsConf("openwrt", sidn_pkg_feed_dir))
     if config.getboolean('OpenWRT', 'update_all_feeds'):
         # Always update all feeds
@@ -202,8 +219,8 @@ def build_steps(config):
         sb.add_cmd("cp %s/devices/%s/diffconfig ./.config" % (valibox_build_tools_dir, target)).at("openwrt")
         sb.add_cmd("make defconfig").at("openwrt")
         # Some packages handle multi-arch building really badly, so we clean them all for each target
-        if len(targets) > 1:
-            sb.add_cmd("make package/clean").at("openwrt")
+        #if len(targets) > 1:
+        #    sb.add_cmd("make package/clean").at("openwrt")
         build_cmd = "make"
         if config.get("OpenWRT", "make_arguments") != "":
             build_cmd += " %s" % config.get("OpenWRT", "make_arguments")
@@ -215,8 +232,9 @@ def build_steps(config):
         # steps are more related to updating the website, i think
         #if target == 'innotek-gmbh-virtualbox':
         #    sb.add_cmd("gunzip -fk openwrt-x86-64-combined-squashfs.img.gz").at("openwrt/bin/targets/x86/64/")
-        #if target == 'raspberrypi,3-model-b':
-        #    sb.add_cmd("gunzip -fk openwrt-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz").at("openwrt/bin/targets/brcm2708/bcm2710/")
+	# For raspberry, we want to add '.gz' to the final name
+        if target == 'raspberrypi,3-model-b':
+            sb.add_cmd("gunzip -fk openwrt-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz").at("openwrt/bin/targets/brcm2708/bcm2710/")
 
     #
     # And finally, move them into a release directory structure
@@ -250,6 +268,10 @@ def main():
     parser.add_argument('-s', '--spin-only', action="store_true", help='Only rebuild the SPIN package')
     args = parser.parse_args()
 
+    if args.build or args.restart:
+        if not os.path.exists(args.config):
+            print("Valibox Builder Config file does not exist, are you running this in the right directory? If so, please run with '-e' first")
+            return 1
     config = BuildConfig(args.config, DEFAULT_CONFIG)
     if args.spin_only:
         builder = Builder(build_steps_spin_only(config))

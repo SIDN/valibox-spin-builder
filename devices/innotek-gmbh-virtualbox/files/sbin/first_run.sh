@@ -5,6 +5,9 @@ CHECK_FILE="/etc/first_run.done"
 if [ -f "$CHECK_FILE" ]; then
     echo "first run already done, delete $CHECK_FILE to run setup again"
 else
+    # nginx package may have overwritten our nginx file
+    cp /etc/nginx/nginx.conf.in /etc/nginx/nginx.conf
+
     sleep 5
     # generate unbound_control key and cert
     /usr/sbin/unbound-control-setup
