@@ -81,10 +81,11 @@ class UpdateFeedsConf(Step):
         return True
 
 class UpdatePkgMakefile(Step):
-    def __init__(self, directory, makefile, tarfile):
+    def __init__(self, directory, makefile, tarfile, version_string):
         self.directory = directory
         self.makefile = makefile
         self.tarfile = tarfile
+        self.version_string = version_string
 
     def __str__(self):
         return "in %s: Update the OpenWRT package makefile %s to use %s as the source" % (self.directory, self.makefile, self.tarfile)
@@ -122,9 +123,9 @@ class UpdatePkgMakefile(Step):
                 with open(self.makefile + ".tmp", "w") as outfile:
                     for line in infile.readlines():
                         if line.startswith("PKG_VERSION:="):
-                            outfile.write("PKG_VERSION:=0.9\n")
+                            outfile.write("PKG_VERSION:=%s\n" % self.version_string)
                         elif line.startswith("PKG_BUILD_DIR:="):
-                            outfile.write("PKG_BUILD_DIR:=spin-0.9\n")
+                            outfile.write("PKG_BUILD_DIR:=spin-%s\n" % self.version_string)
                         elif line.startswith("PKG_SOURCE:="):
                             outfile.write("PKG_SOURCE:=%s\n" % os.path.basename(self.tarfile))
                         elif line.startswith("PKG_SOURCE_URL:="):
