@@ -17,7 +17,7 @@ location /spin_api {
     proxy_set_header Connection close;
 
     # Fix the “It appears that your reverse proxy set up is broken" error.
-    proxy_pass          http://localhost:8002;
+    proxy_pass          http://spin_backend;
     proxy_read_timeout  90;
 }
 
@@ -35,6 +35,6 @@ location /spin_api/tcpdump {
     proxy_set_header Upgrade $http_upgrade;
 
     # Fix the “It appears that your reverse proxy set up is broken" error.
-    proxy_pass          http://localhost:8002;
+    proxy_pass          http://spin_backend;
     proxy_read_timeout  172800;
 }

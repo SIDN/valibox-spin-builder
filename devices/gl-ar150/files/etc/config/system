@@ -4,7 +4,7 @@ config system
 	option timezone 'UTC'
 
 config timeserver 'ntp'
-	list server 'ntp.time.nl'
+	list server 'ntp.valibox.time.nl'
 	list server '94.198.159.10'
 	list server '0.openwrt.pool.ntp.org'
 	list server '1.openwrt.pool.ntp.org'
