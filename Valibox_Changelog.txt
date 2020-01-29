@@ -1,4 +1,4 @@
-- ValiBox Release 1.8 -
+- ValiBox Release 1.9 -
 
 IMPORTANT: Version 1.6 to 1.8 contain configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
 IMPORTANT: Version 1.6 to 1.8 contain configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
@@ -11,6 +11,20 @@ Supports:
  * Includes SPIN prototype (0.10)
 
 Changelog:
+
+1.9
+- Updated OpenWRT to 19.07.0
+- Small improvement of valibox page CSS
+- Updated SPIN to 0.11:
+  * Added '-c' option to spind for specifying a configuration file
+  * Added '-e' option to spind for specifying an external traffic data input socket
+  * Added '-a' and '
+  * Added experimental DOTS signal message processing (disabled by default)
+  * Device flow data now includes port numbers and ICMP types
+  * Fixed an issue where spind would crash if the logfile can't be opened
+  * Fixed an issue where clicking on empty space in the Web UI showed an error
+  * Fixed an issue where traffic captures would time out
+
 
 1.8
 - Added time.nl to the list of NTP servers
