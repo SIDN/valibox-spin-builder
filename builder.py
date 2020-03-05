@@ -105,7 +105,7 @@ def build_steps_spin_only(config):
     #build_cmd = "make package/spin/compile -j1 V=s"
     valibox_build_tools_dir = get_valibox_build_tools_dir()
     for target in targets:
-        sb.add_cmd("cp %s/architectures/%s/diffconfig ./.config" % (valibox_build_tools_dir, target)).at("openwrt")
+        sb.add_cmd("cp %s/devices/%s/diffconfig ./.config" % (valibox_build_tools_dir, target)).at("openwrt")
         sb.add_cmd("make defconfig").at("openwrt")
         sb.add_cmd("make toolchain/compile").at("openwrt")
         sb.add_cmd("make target/linux/compile").at("openwrt")
