@@ -81,57 +81,30 @@ class UpdateFeedsConf(Step):
         return True
 
 class UpdatePkgMakefile(Step):
-    def __init__(self, directory, makefile, tarfile, version_string):
+    def __init__(self, directory, makefile, source_url):
         self.directory = directory
         self.makefile = makefile
-        self.tarfile = tarfile
-        self.version_string = version_string
+        self.source_url = source_url
 
     def __str__(self):
-        return "in %s: Update the OpenWRT package makefile %s to use %s as the source" % (self.directory, self.makefile, self.tarfile)
+        return "in %s: Update the OpenWRT package makefile %s to use %s as the git source" % (self.directory, self.makefile, self.source_url)
 
     def perform(self):
         with gotodir(self.directory):
             # First, get the hash of the tarfile
-            hash_line = basic_cmd_output("sha256sum %s" % self.tarfile)
-            if hash_line is None:
-                # print error?
-                return False
-            hash_str = hash_line.split(" ")[0]
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
-            print("[XX] HASH STR: '%s'" % hash_str)
+            #hash_line = basic_cmd_output("sha256sum %s" % self.tarfile)
+            #if hash_line is None:
+            #    # print error?
+            #    return False
+            #hash_str = hash_line.split(" ")[0]
 
             # Read the makefile, and update it in a tmp file
             # should we use mktempfile for this, or is this ok?
             with open(self.makefile, "r") as infile:
                 with open(self.makefile + ".tmp", "w") as outfile:
                     for line in infile.readlines():
-                        if line.startswith("PKG_VERSION:="):
-                            outfile.write("PKG_VERSION:=%s\n" % self.version_string)
-                        elif line.startswith("PKG_BUILD_DIR:="):
-                            outfile.write("PKG_BUILD_DIR:=spin-%s\n" % self.version_string)
-                        elif line.startswith("PKG_SOURCE:="):
-                            outfile.write("PKG_SOURCE:=%s\n" % os.path.basename(self.tarfile))
-                        elif line.startswith("PKG_SOURCE_URL:="):
-                            outfile.write("PKG_SOURCE_URL:=file://%s\n" % os.path.dirname(self.tarfile))
-                        elif line.startswith("PKG_HASH:="):
-                            outfile.write("PKG_HASH:=%s\n" % hash_str)
+                        if line.startswith("PKG_SOURCE_URL:="):
+                            outfile.write("PKG_SOURCE_URL:=%s\n" % self.source_url)
                         else:
                             outfile.write(line)
             # seems like we succeeded, overwrite the makefile

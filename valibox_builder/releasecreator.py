@@ -47,16 +47,10 @@ class ReleaseCreator:
             with open(info_file) as inf:
                 reader = csv.reader(inf, delimiter=',', quotechar='"')
                 for parts in reader:
-                    #print("[XX] PARTS: %s" % str(parts))
-                    #print("[XX] PARTS0: %s" % str(parts[0]))
-                    #print("[XX] PARTS1: %s" % str(parts[1]))
-                    #parts = line.split(",")
                     if len(parts) != 2:
                         raise ReleaseEnvironmentError("Image information file (%s) does not contain <name>,<path>" % info_file)
                     image_name = parts[0].strip()
                     image_file = parts[1].strip()
-                    #print("[XX] IMAGE NAME: '%s'" % image_name)
-                    #print("[XX] IMAGE FILE: '%s'" % image_file)
                     self.images.append((image_name, image_file))
 
     def create_target_tree(self):
@@ -129,13 +123,9 @@ class ReleaseCreator:
         try:
             self.create_versions_file()
         except Exception as exc:
-            print(str(self.images))
-            print("[XX] Error:")
-            print(str(type(exc)))
             exc_type, exc_value, exc_traceback = sys.exc_info()
             traceback.print_tb(exc_traceback, limit=1, file=sys.stdout)
             return False
-        print("[XX] CR OK")
         return True
 
 if __name__ == "__main__":

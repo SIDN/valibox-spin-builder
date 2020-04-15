@@ -83,13 +83,15 @@ def build_steps_spin_only(config):
             sb.add(GitBranchStep(config.get("SPIN", "source_branch"), "spin"))
             sb.add_cmd("git pull").at("spin").may_fail()
 
-        # Create a local release tarball from the checkout, and
-        # update the PKGHASH and location in the package feed data
-        # TODO: there are a few hardcoded values assumed here and in the next few steps
-        sb.add_cmd("./scripts/create_tarball.sh -n").at("spin")
+        # Make very sure the package is rebuilt
         sb.add_cmd("rm -f dl/spin-*.tar.gz").at("openwrt")
 
-        # Set that in the pkg feed data; we do not want to change the repository, so we make a copy and update that
+        # Since we are building spin from a local repository clone, we need to clone and update
+        # the package Makefile. The master branch in the package repository already
+        # uses git, so we only need to update the package source url.
+        # It does, however, require the sidn_pkgs feed to be changed.
+        # In order to not do that in the actual repository, we copy it, update the copy,
+        # and point to the updated copy in feeds.conf
         sidn_pkg_feed_dir = "sidn_openwrt_pkgs"
         orig_sidn_pkg_feed_dir = sidn_pkg_feed_dir
         sidn_pkg_feed_dir = sidn_pkg_feed_dir + "_local"
@@ -97,7 +99,7 @@ def build_steps_spin_only(config):
 
         spin_version = config.get("SPIN", "version")
 
-        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "/tmp/spin_release_file/spin-%s.tar.gz" % spin_version, spin_version))
+        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "file:/%s" % os.path.abspath("./spin")))
 
     sb.add_cmd("./scripts/feeds update sidn").at("openwrt").if_dir_exists("package/feeds/packages")
     sb.add_cmd("./scripts/feeds install -a -p sidn").at("openwrt").if_dir_exists("package/feeds/packages")
@@ -156,21 +158,23 @@ def build_steps(config):
             sb.add(GitBranchStep(config.get("SPIN", "source_branch"), "spin"))
             sb.add_cmd("git pull").at("spin").may_fail()
 
-        # Create a local release tarball from the checkout, and
-        # update the PKGHASH and location in the package feed data
-        # TODO: there are a few hardcoded values assumed here and in the next few steps
-        sb.add_cmd("./scripts/create_tarball.sh -n").at("spin")
+        # Make very sure the packages are downloaded/rebuilt
         sb.add_cmd("rm -f dl/spin-*.tar.gz").at("openwrt")
         sb.add_cmd("rm -f dl/lua-minittp-*.tar.xz").at("openwrt")
 
-        # Set that in the pkg feed data; we do not want to change the repository, so we make a copy and update that
+        # Since we are building spin from a local repository clone, we need to clone and update
+        # the package Makefile. The master branch in the package repository already
+        # uses git, so we only need to update the package source url.
+        # It does, however, require the sidn_pkgs feed to be changed.
+        # In order to not do that in the actual repository, we copy it, update the copy,
+        # and point to the updated copy in feeds.conf
         orig_sidn_pkg_feed_dir = sidn_pkg_feed_dir
         sidn_pkg_feed_dir = sidn_pkg_feed_dir + "_local"
         sb.add_cmd("git checkout-index -a -f --prefix=../%s/" % sidn_pkg_feed_dir).at(orig_sidn_pkg_feed_dir)
 
         spin_version = config.get("SPIN", "version")
 
-        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "/tmp/spin_release_file/spin-%s.tar.gz" % spin_version, spin_version))
+        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "file:/%s" % os.path.abspath("./spin")))
 
     #
     # Update general package feeds in OpenWRT
