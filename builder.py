@@ -49,7 +49,7 @@ DEFAULT_CONFIG = collections.OrderedDict((
     ('SPIN', collections.OrderedDict((
                 ('local', True),
                 ('update_git', True),
-                ('version', '0.10'),
+                ('version', '0.11'),
                 ('source_branch', 'master'),
     ))),
     ('Release', collections.OrderedDict((
@@ -70,7 +70,7 @@ def build_steps_spin_only(config):
     #
     target_device = config.get('OpenWRT', 'target_device')
     if target_device == 'all':
-        targets = [ 'gl-ar150', 'gl-mt300a', 'innotek-gmbh-virtualbox', 'raspberrypi,3-model-b', 'ar71xx', 'mt7622', 'ipq40xx', 'ipq806x' ]
+        targets = [ 'gl-ar150', 'gl-mt300a', 'innotek-gmbh-virtualbox', 'raspberrypi,3-model-b', 'turris-omnia', 'ar71xx', 'mt7622', 'ipq40xx', 'ipq806x' ]
     else:
         targets = [ target_device ]
 
@@ -196,7 +196,7 @@ def build_steps(config):
     #
     target_device = config.get('OpenWRT', 'target_device')
     if target_device == 'all':
-        targets = [ 'gl-ar150', 'gl-mt300a', 'innotek-gmbh-virtualbox', 'raspberrypi,3-model-b' ]
+        targets = [ 'gl-ar150', 'gl-mt300a', 'innotek-gmbh-virtualbox', 'raspberrypi,3-model-b', 'turris-omnia' ]
     else:
         targets = [ target_device ]
 

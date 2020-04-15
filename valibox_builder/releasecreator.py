@@ -20,6 +20,7 @@ import os
 import shutil
 import sys
 import csv
+import traceback
 
 class ReleaseEnvironmentError(Exception):
     pass
@@ -105,6 +106,14 @@ class ReleaseCreator:
                         if imname in line:
                             parts = line.split(" ")
                             self.sums[image[0]] = parts[0] + "\n"
+        if 'all' in self.targets or 'turris-omnia' in self.targets:
+            with open("bin/targets/mvebu/cortexa9/sha256sums", "r") as sumsfile:
+                for line in sumsfile.readlines():
+                    for image in self.images:
+                        imname = image[1].rpartition('/')[2]
+                        if imname in line:
+                            parts = line.split(" ")
+                            self.sums[image[0]] = parts[0] + "\n"
 
     def create_versions_file(self):
         with open("%s/versions.txt" % self.target_dir, "w") as outputfile:
@@ -120,9 +129,13 @@ class ReleaseCreator:
         try:
             self.create_versions_file()
         except Exception as exc:
-            print(str(exc))
             print(str(self.images))
+            print("[XX] Error:")
+            print(str(type(exc)))
+            exc_type, exc_value, exc_traceback = sys.exc_info()
+            traceback.print_tb(exc_traceback, limit=1, file=sys.stdout)
             return False
+        print("[XX] CR OK")
         return True
 
 if __name__ == "__main__":
