@@ -99,7 +99,7 @@ def build_steps_spin_only(config):
 
         spin_version = config.get("SPIN", "version")
 
-        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "file:/%s" % os.path.abspath("./spin")))
+        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "file://%s" % os.path.abspath("./spin")))
 
     sb.add_cmd("./scripts/feeds update sidn").at("openwrt").if_dir_exists("package/feeds/packages")
     sb.add_cmd("./scripts/feeds install -a -p sidn").at("openwrt").if_dir_exists("package/feeds/packages")
@@ -174,7 +174,7 @@ def build_steps(config):
 
         spin_version = config.get("SPIN", "version")
 
-        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "file:/%s" % os.path.abspath("./spin")))
+        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "file://%s" % os.path.abspath("./spin")))
 
     #
     # Update general package feeds in OpenWRT
