@@ -81,10 +81,11 @@ class UpdateFeedsConf(Step):
         return True
 
 class UpdatePkgMakefile(Step):
-    def __init__(self, directory, makefile, source_url):
+    def __init__(self, directory, makefile, source_url, source_branch):
         self.directory = directory
         self.makefile = makefile
         self.source_url = source_url
+        self.source_branch = source_branch
 
     def __str__(self):
         return "in %s: Update the OpenWRT package makefile %s to use %s as the git source" % (self.directory, self.makefile, self.source_url)
@@ -105,6 +106,8 @@ class UpdatePkgMakefile(Step):
                     for line in infile.readlines():
                         if line.startswith("PKG_SOURCE_URL:="):
                             outfile.write("PKG_SOURCE_URL:=%s\n" % self.source_url)
+                        elif line.startswith("LATEST_COMMIT"):
+                            outfile.write(line.replace("master", self.source_branch))
                         else:
                             outfile.write(line)
             # seems like we succeeded, overwrite the makefile

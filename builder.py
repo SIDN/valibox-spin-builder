@@ -99,7 +99,7 @@ def build_steps_spin_only(config):
 
         spin_version = config.get("SPIN", "version")
 
-        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "file://%s" % os.path.abspath("./spin")))
+        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "file://%s" % os.path.abspath("./spin"), config.get("SPIN", "source_branch")))
 
     sb.add_cmd("./scripts/feeds update sidn").at("openwrt").if_dir_exists("package/feeds/packages")
     sb.add_cmd("./scripts/feeds install -a -p sidn").at("openwrt").if_dir_exists("package/feeds/packages")
@@ -107,7 +107,7 @@ def build_steps_spin_only(config):
     #build_cmd = "make package/spin/compile -j1 V=s"
     valibox_build_tools_dir = get_valibox_build_tools_dir()
     for target in targets:
-        sb.add_cmd("cp %s/architectures/%s/diffconfig ./.config" % (valibox_build_tools_dir, target)).at("openwrt")
+        sb.add_cmd("cp %s/devices/%s/diffconfig ./.config" % (valibox_build_tools_dir, target)).at("openwrt")
         sb.add_cmd("make defconfig").at("openwrt")
         sb.add_cmd("make toolchain/compile").at("openwrt")
         sb.add_cmd("make target/linux/compile").at("openwrt")
@@ -174,7 +174,7 @@ def build_steps(config):
 
         spin_version = config.get("SPIN", "version")
 
-        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "file://%s" % os.path.abspath("./spin")))
+        sb.add(UpdatePkgMakefile(sidn_pkg_feed_dir, "spin/Makefile", "file://%s" % os.path.abspath("./spin"), config.get("SPIN", "source_branch")))
 
     #
     # Update general package feeds in OpenWRT
