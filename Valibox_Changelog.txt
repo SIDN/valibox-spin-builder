@@ -1,16 +1,27 @@
-- ValiBox Release 1.9 -
+- ValiBox Release 1.10 BETA -
 
-IMPORTANT: Version 1.6 to 1.8 contain configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
-IMPORTANT: Version 1.6 to 1.8 contain configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
-IMPORTANT: Version 1.6 to 1.8 contain configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+IMPORTANT: Version 1.10 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+IMPORTANT: Version 1.10 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+IMPORTANT: Version 1.10 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
 
-Supports:
+Valibox Features:
  * DNSSEC validation
  * User-friendly negative trust anchor management
  * Full configurability through OpenWRT
- * Includes SPIN prototype (0.10)
+ * Includes SPIN prototype (0.12 beta)
 
 Changelog:
+
+1.10
+- Update SPIN to 0.12
+  * Replaced the lua-based web API to control the SPIN daemon with an
+    internal libmicrohttpd-based implementation. This eases initial
+    configuration and reduces the dependencies of the package, while
+    still allowing optional additional security features through a
+    (manually configured) http frontend such as nginx or apache
+  * The SPIN web interface can now be reached at 192.168.8.1:13026 from
+    the internal network
+
 
 1.9
 - Updated OpenWRT to 19.07.0
