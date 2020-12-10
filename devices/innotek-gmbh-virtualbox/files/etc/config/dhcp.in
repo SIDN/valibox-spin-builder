@@ -17,7 +17,7 @@ config dnsmasq
 	#option port 0
 	# We forward queries to the local unbound
 	# instance
-	list server '127.0.0.1#5353'
+	list server '/#/127.0.0.1#5353'
 	# Let unbound do the protection
 	option dnssec '0'
 	option rebind_protection '0'
