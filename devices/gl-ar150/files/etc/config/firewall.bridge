@@ -189,6 +189,21 @@ config rule
 	list proto 'tcp'
 	list proto 'udp'
 
+config rule
+	option dest_port '13026'
+	option src 'wan'
+	option name 'allow-spin'
+	option target 'ACCEPT'
+	list proto 'tcp'
+	list proto 'udp'
+
+config rule
+	option dest_port '1884'
+	option src 'wan'
+	option name 'allow-mqtt'
+	option target 'ACCEPT'
+	list proto 'tcp'
+	list proto 'udp'
 
 ### FULL CONFIG SECTIONS
 #config rule
