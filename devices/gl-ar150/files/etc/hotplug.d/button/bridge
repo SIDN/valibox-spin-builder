@@ -1,0 +1,24 @@
+#!/bin/sh
+
+# This script contains device-specific information for turning the bridge mode on or off
+
+if [ "${BUTTON}" == "BTN_8" ]; then
+    case "${ACTION}" in
+        "released")
+            # Check if the bridge was enabled
+            /sbin/bridge.sh off
+            if [ $? -eq 0 ]; then
+                logger "Bridge disabled, back to normal"
+                echo 0 > /sys/class/leds/gl-ar150\:orange\:wlan/brightness
+            fi
+            ;;
+        "pressed") 
+            # Check if the bridge was disabled before.
+            /sbin/bridge.sh on
+            if [ $? -eq 0 ]; then
+                logger "Bridge-mode enabled"
+                echo 1 > /sys/class/leds/gl-ar150\:orange\:wlan/brightness
+            fi
+            ;;
+    esac
+fi
