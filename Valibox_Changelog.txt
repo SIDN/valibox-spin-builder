@@ -1,4 +1,4 @@
-- ValiBox Release 1.10 BETA -
+- ValiBox Release 1.10 -
 
 IMPORTANT: Version 1.10 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
 IMPORTANT: Version 1.10 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
@@ -8,7 +8,7 @@ Valibox Features:
  * DNSSEC validation
  * User-friendly negative trust anchor management
  * Full configurability through OpenWRT
- * Includes SPIN prototype (0.12 beta)
+ * Includes SPIN (0.12)
 
 Changelog:
 
@@ -31,6 +31,8 @@ Changelog:
     configuration and reduces the dependencies of the package, while
     still allowing optional additional security features through a
     (manually configured) http frontend such as nginx or apache
+  * Improved the pcap upload screen. It now shows more data fields, as well
+    as suggested entries.
   * SPIN can now automatically start mosquitto if necessary
   * SPIN can now automatically load conntrack kernel modules and enable
     IP Accounting
