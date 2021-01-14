@@ -1,4 +1,4 @@
-- ValiBox Release 1.10 BETA -
+- ValiBox Release 1.10 -
 
 IMPORTANT: Version 1.10 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
 IMPORTANT: Version 1.10 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
@@ -8,19 +8,35 @@ Valibox Features:
  * DNSSEC validation
  * User-friendly negative trust anchor management
  * Full configurability through OpenWRT
- * Includes SPIN prototype (0.12 beta)
+ * Includes SPIN (0.12)
 
 Changelog:
 
 1.10
-- Update SPIN to 0.12
+- Updated Unbound to 1.13
+- Updated OpenWRT to 19.07.5
+- Updated SPIN to 0.12
+  * SPIN is now, by default, directly reachable on port 13026, rather that
+    needing a reverse proxy for handling web traffic. It is still advisable
+    to set one up yourself, to add TLS support and other security.
+  * Added the SPIN Pcap Reader functionality
+  * Added a 'passive mode', where SPIN does not modify firewall rules
+  * The 'bubble app' now shows labels edges with the services or destination
+    ports of the traffic, such as 'ntp' or 'https'. This is based on the
+    destination port number, and SPIN does not inspect whether the traffic
+    actually matches the service. For instance, all traffic on port 443 is
+    shown as 'https'.
   * Replaced the lua-based web API to control the SPIN daemon with an
     internal libmicrohttpd-based implementation. This eases initial
     configuration and reduces the dependencies of the package, while
     still allowing optional additional security features through a
     (manually configured) http frontend such as nginx or apache
-  * The SPIN web interface can now be reached at 192.168.8.1:13026 from
-    the internal network
+  * Improved the pcap upload screen. It now shows more data fields, as well
+    as suggested entries.
+  * SPIN can now automatically start mosquitto if necessary
+  * SPIN can now automatically load conntrack kernel modules and enable
+    IP Accounting
+  * Fixed a compilation issue when using Clang
 
 
 1.9
