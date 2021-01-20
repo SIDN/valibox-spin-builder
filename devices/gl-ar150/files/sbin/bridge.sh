@@ -19,13 +19,16 @@ if [ "${COMMAND}" == "on" ]; then
     
     # Turn it on
     # Change configuration files to bridge mode
-        cp /etc/config/firewall.bridge /etc/config/firewall &&\
+    cp /etc/config/firewall.bridge /etc/config/firewall &&\
         cp /etc/config/network.bridge /etc/config/network &&\
         /sbin/uci set "wireless.@wifi-iface[0].disabled"='1' &&\
         /sbin/uci commit &&\
         echo "Restarting network" &&\
         /etc/init.d/network restart &&\
         /sbin/fw3 reload &&\
+        /etc/init.d/spinweb restart &&\
+        /sbin/uci set spin.spind.spinweb_interfaces="`/sbin/get_ip4addr.sh`, 127.0.0.1" &&\ # Obtain current IP address
+        /sbin/uci commit &&\
         echo 1 > "$CHECK_FILE" &&\
         exit 0
 elif [ "${COMMAND}" == "off" ]; then
@@ -40,6 +43,9 @@ elif [ "${COMMAND}" == "off" ]; then
         echo "Restarting network" &&\
         /etc/init.d/network restart &&\
         /sbin/fw3 reload &&\
+        /etc/init.d/spinweb restart &&\
+        /sbin/uci set spin.spind.spinweb_interfaces="`/sbin/get_ip4addr.sh`, 127.0.0.1" &&\ # Obtain current IP address
+        /sbin/uci commit &&\
         rm "$CHECK_FILE" &&\
         exit 0
 else
