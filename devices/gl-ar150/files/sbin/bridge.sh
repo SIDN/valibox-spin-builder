@@ -1,14 +1,12 @@
 #!/bin/sh
 
 # Activate bridge functionality
-CHECK_FILE="/etc/bridgemode.on"
 COMMAND="$1"
 
-if [ ! -f "/etc/config/firewall.normal" ]; then
-    cp /etc/config/firewall /etc/config/firewall.normal
-fi
-if [ ! -f "/etc/config/network.normal" ]; then
-    cp /etc/config/network /etc/config/network.normal
+# If the architecture does not support bridge-modes, /etc/config/firewall and network are not a symlink
+# Then, we quit indicating default mode, there is nothing to possibly do.
+if [[ $(readlink -f /etc/config/firewall) == "/etc/config/firewall" && $(readlink -f /etc/config/network) == "/etc/config/network" ]]; then
+    exit 0
 fi
 
 if [ "${COMMAND}" == "on" ]; then    
@@ -24,7 +22,7 @@ if [ "${COMMAND}" == "on" ]; then
     /sbin/uci set spin.spind.spinweb_interfaces="`/sbin/get_ip4addr.sh`, 127.0.0.1" &&\ # Obtain current IP address
     /sbin/uci commit &&\
     /etc/init.d/spinweb restart &&\
-    exit 0
+    exit 1
 elif [ "${COMMAND}" == "off" ]; then
     # Turn to default (nat) mode
     ln -f -s /etc/config/firewall.normal /etc/config/firewall &&\
