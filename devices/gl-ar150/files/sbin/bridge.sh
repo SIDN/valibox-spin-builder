@@ -25,8 +25,8 @@ if [ "${COMMAND}" == "on" ]; then
     exit 1
 elif [ "${COMMAND}" == "off" ]; then
     # Turn to default (nat) mode
-    ln -f -s /etc/config/firewall.normal /etc/config/firewall &&\
-    ln -f -s /etc/config/network.normal /etc/config/network &&\
+    ln -f -s /etc/config/firewall.router /etc/config/firewall &&\
+    ln -f -s /etc/config/network.router /etc/config/network &&\
     /sbin/uci set "wireless.@wifi-iface[0].disabled"='0' &&\
     /sbin/uci commit &&\
     echo "Restarting network" &&\
@@ -40,6 +40,6 @@ else
     # Check status, return 0 when in bridge mode, 1 otherwise.
     NOTHING=$(cat /sys/kernel/debug/gpio | grep BTN_8 | grep lo)
     STATUS=$?
-    # STATUS is 0 (default) or 1 (bridge mode)
+    # STATUS is 0 (default) or 1 (bridge mode or error)
     exit $STATUS
 fi
