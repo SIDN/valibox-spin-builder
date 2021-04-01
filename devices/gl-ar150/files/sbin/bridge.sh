@@ -22,6 +22,7 @@ if [ "${COMMAND}" == "on" ]; then
     /sbin/uci set spin.spind.spinweb_interfaces="`/sbin/get_ip4addr.sh`, 127.0.0.1" &&\ # Obtain current IP address
     /sbin/uci commit &&\
     /etc/init.d/spinweb restart &&\
+    /etc/init.d/spin restart &&\
     exit 1
 elif [ "${COMMAND}" == "off" ]; then
     # Turn to default (nat) mode
@@ -35,6 +36,7 @@ elif [ "${COMMAND}" == "off" ]; then
     /sbin/uci set spin.spind.spinweb_interfaces="`/sbin/get_ip4addr.sh`, 127.0.0.1" &&\ # Obtain current IP address
     /sbin/uci commit &&\
     /etc/init.d/spinweb restart &&\
+    /etc/init.d/spin restart &&\
     exit 0
 else
     # Check status, return 0 when in bridge mode, 1 otherwise.
