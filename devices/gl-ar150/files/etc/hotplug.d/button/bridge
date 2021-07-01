@@ -6,17 +6,21 @@ if [ "${BUTTON}" == "BTN_8" ]; then
     case "${ACTION}" in
         "released")
             # Check if the bridge was enabled
+            echo "timer" > /sys/class/leds/gl-ar150\:orange\:wlan/trigger
             /sbin/bridge.sh off
             if [ $? -eq 0 ]; then
                 logger "Bridge disabled, back to normal"
+                echo "none" > /sys/class/leds/gl-ar150\:orange\:wlan/trigger
                 echo 0 > /sys/class/leds/gl-ar150\:orange\:wlan/brightness
             fi
             ;;
         "pressed") 
             # Check if the bridge was disabled before.
+            echo "timer" > /sys/class/leds/gl-ar150\:orange\:wlan/trigger
             /sbin/bridge.sh on
-            if [ $? -eq 0 ]; then
+            if [ $? -eq 1 ]; then
                 logger "Bridge-mode enabled"
+                echo "none" > /sys/class/leds/gl-ar150\:orange\:wlan/trigger
                 echo 1 > /sys/class/leds/gl-ar150\:orange\:wlan/brightness
             fi
             ;;
