@@ -215,6 +215,21 @@ def build_steps(config):
         version_string += "_%s" % config.get("Release", "file_suffix")
 
     #
+    # If we are going to create a release later, we remove old image files
+    # now (to catch the problem where the image file isn't rebuilt due to
+    # size restrictions; without this step it would silently create a
+    # release based on an older image)
+    #
+    if config.getboolean("Release", "create_release"):
+        rs = CreateReleaseStep(targets, get_valibox_build_tools_dir(),
+                    version_string, get_changelog_file(config),
+                    config.get("Release", "target_directory")).at("openwrt")
+        rs.rc.check_environment()
+        for img in rs.rc.images:
+            print("rm -rf %s" % img[1])
+            sb.add_cmd("rm -rf %s" % img[1])
+
+    #
     # Build the OpenWRT image(s)
     #
     for target in targets:
