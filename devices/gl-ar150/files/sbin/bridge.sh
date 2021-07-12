@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# SPIN check file to see if bridge mode is active
+CHECK_FILE="/etc/bridge.active"
+
 # Activate bridge functionality
 COMMAND="$1"
 
@@ -9,38 +12,42 @@ if [[ $(readlink -f /etc/config/firewall) == "/etc/config/firewall" && $(readlin
     exit 0
 fi
 
-if [ "${COMMAND}" == "on" ]; then    
+if [ "${COMMAND}" == "on" ]; then
+    # Check if turning on is needed
+    if [ -e "$CHECK_FILE" ]; then
+        # Nothing to do, bridge mode is already active
+        exit 1
+    fi
+    
     # Turn to bridge mode
     # Change configuration files to bridge mode
     ln -f -s /etc/config/firewall.bridge /etc/config/firewall &&\
     ln -f -s /etc/config/network.bridge /etc/config/network &&\
     /sbin/uci set "wireless.@wifi-iface[0].disabled"='1' &&\
     /sbin/uci commit &&\
-    /etc/init.d/spin stop &&\
-    /etc/init.d/spinweb stop &&\
-    echo "Restarting network" &&\
-    /etc/init.d/network restart &&\
-    /sbin/fw3 reload &&\
-    /sbin/uci set spin.spind.spinweb_interfaces="`/sbin/get_ip4addr.sh`, 127.0.0.1" &&\
-    /sbin/uci commit &&\
-    /etc/init.d/spinweb start &&\
-    /etc/init.d/spin start &&\
+    echo 1 > "$CHECK_FILE"
+
+    # Reboot to make sure everything gets set correctly
+    sleep 2
+    reboot
     exit 1
 elif [ "${COMMAND}" == "off" ]; then
+    # Check if turning on is needed
+    if [ ! -e "$CHECK_FILE" ]; then
+        # Nothing to do, default nat mode is active
+        exit 0
+    fi
+
     # Turn to default (nat, router) mode
     ln -f -s /etc/config/firewall.router /etc/config/firewall &&\
     ln -f -s /etc/config/network.router /etc/config/network &&\
     /sbin/uci set "wireless.@wifi-iface[0].disabled"='0' &&\
     /sbin/uci commit &&\
-    /etc/init.d/spin stop &&\
-    /etc/init.d/spinweb stop &&\
-    echo "Restarting network" &&\
-    /etc/init.d/network restart &&\
-    /sbin/fw3 reload &&\
-    /sbin/uci set spin.spind.spinweb_interfaces="`/sbin/get_ip4addr.sh`, 127.0.0.1" &&\
-    /sbin/uci commit &&\
-    /etc/init.d/spinweb start &&\
-    /etc/init.d/spin start &&\
+    rm -f "$CHECK_FILE"
+
+    # Reboot to make sure everything gets set correctly
+    sleep 2
+    reboot
     exit 0
 else
     # Check status, return 0 when in bridge mode, 1 otherwise.
