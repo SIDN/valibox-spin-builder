@@ -1,10 +1,12 @@
 #!/bin/sh
 
 # This script contains device-specific information for turning the bridge mode on or off
+# Button 'left' mode is pressed (default on), normal mode.
+# Button 'right' means released: bridge mode
 
 if [ "${BUTTON}" == "BTN_8" ]; then
     case "${ACTION}" in
-        "released")
+        "pressed")
             # Check if the bridge was enabled
             echo "timer" > /sys/class/leds/gl-ar150\:orange\:wlan/trigger
             /sbin/bridge.sh off
@@ -14,7 +16,7 @@ if [ "${BUTTON}" == "BTN_8" ]; then
                 echo 0 > /sys/class/leds/gl-ar150\:orange\:wlan/brightness
             fi
             ;;
-        "pressed") 
+        "released")
             # Check if the bridge was disabled before.
             echo "timer" > /sys/class/leds/gl-ar150\:orange\:wlan/trigger
             /sbin/bridge.sh on
