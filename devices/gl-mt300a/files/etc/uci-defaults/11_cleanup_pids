@@ -1,0 +1,3 @@
+#!/bin/sh
+rm -f /var/run/spind.pid
+rm -f /var/run/spinweb.pid

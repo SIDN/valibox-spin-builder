@@ -6,6 +6,10 @@ if [ -f "$CHECK_FILE" ]; then
     echo "first run already done, delete $CHECK_FILE to run setup again"
 else
     sleep 5
+    # Disable the default mosquitto instance; SPIN will start one
+    # itself.
+    /etc/init.d/mosquitto disable
+
     # generate unbound_control key and cert
     /usr/sbin/unbound-control-setup
 
