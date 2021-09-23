@@ -70,7 +70,7 @@ def build_steps_spin_only(config):
     #
     target_device = config.get('OpenWRT', 'target_device')
     if target_device == 'all':
-        targets = [ 'gl-ar150', 'gl-mt300a', 'innotek-gmbh-virtualbox', 'raspberrypi,3-model-b', 'turris-omnia', 'ar71xx', 'mt7622', 'ipq40xx', 'ipq806x' ]
+        targets = [ 'gl-ar150', 'gl-mt300a', 'innotek-gmbh-virtualbox', 'raspberrypi,4-model-b', 'turris-omnia', 'ar71xx', 'mt7622', 'ipq40xx', 'ipq806x' ]
     else:
         targets = [ target_device ]
 
@@ -200,7 +200,7 @@ def build_steps(config):
     #
     target_device = config.get('OpenWRT', 'target_device')
     if target_device == 'all':
-        targets = [ 'gl-ar150', 'gl-mt300a', 'innotek-gmbh-virtualbox', 'raspberrypi,3-model-b', 'turris-omnia' ]
+        targets = [ 'gl-ar150', 'gl-mt300a', 'innotek-gmbh-virtualbox', 'raspberrypi,4-model-b', 'turris-omnia' ]
     else:
         targets = [ target_device ]
 
@@ -257,8 +257,8 @@ def build_steps(config):
         #if target == 'innotek-gmbh-virtualbox':
         #    sb.add_cmd("gunzip -fk openwrt-x86-64-combined-squashfs.img.gz").at("openwrt/bin/targets/x86/64/")
 	# For raspberry, we want to add '.gz' to the final name
-        if target == 'raspberrypi,3-model-b':
-            sb.add_cmd("gunzip -fk openwrt-brcm2708-bcm2710-rpi-3-ext4-factory.img.gz").at("openwrt/bin/targets/brcm2708/bcm2710/")
+        if target == 'raspberrypi,4-model-b':
+            sb.add_cmd("gunzip -fk openwrt-bcm27xx-bcm2711-rpi-4-ext4-factory.img.gz").at("openwrt/bin/targets/bcm27xx/bcm2711")
 
     #
     # And finally, move them into a release directory structure

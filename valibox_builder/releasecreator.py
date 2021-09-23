@@ -68,7 +68,7 @@ class ReleaseCreator:
 
     def read_sha256sums(self):
         if 'all' in self.targets or 'gl-ar150' in self.targets:
-            with open("bin/targets/ar71xx/generic/sha256sums", "r") as sumsfile:
+            with open("bin/targets/ath79/generic/sha256sums", "r") as sumsfile:
                 for line in sumsfile.readlines():
                     for image in self.images:
                         imname = image[1].rpartition('/')[2]
@@ -92,8 +92,8 @@ class ReleaseCreator:
                         if imname in line:
                             parts = line.split(" ")
                             self.sums[image[0]] = parts[0] + "\n"
-        if 'all' in self.targets or 'raspberrypi,3-model-b' in self.targets:
-            with open("bin/targets/brcm2708/bcm2710/sha256sums", "r") as sumsfile:
+        if 'all' in self.targets or 'raspberrypi,4-model-b' in self.targets:
+            with open("bin/targets/bcm27xx/bcm2711/sha256sums", "r") as sumsfile:
                 for line in sumsfile.readlines():
                     for image in self.images:
                         imname = image[1].rpartition('/')[2]

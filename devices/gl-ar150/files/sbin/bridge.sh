@@ -18,7 +18,7 @@ if [ "${COMMAND}" == "on" ]; then
         # Nothing to do, bridge mode is already active
         exit 1
     fi
-    
+
     # Turn to bridge mode
     # Change configuration files to bridge mode
     ln -f -s /etc/config/firewall.bridge /etc/config/firewall &&\
@@ -51,7 +51,10 @@ elif [ "${COMMAND}" == "off" ]; then
     exit 0
 else
     # Check status, return 0 when in bridge mode, 1 otherwise.
-    NOTHING=$(cat /sys/kernel/debug/gpio | grep BTN_8 | grep hi)
+    # In openwrt<=19.07
+    #NOTHING=$(cat /sys/kernel/debug/gpio | grep BTN_8 | grep hi)
+    # In openwrt>=21.2
+    NOTHING=$(cat /sys/kernel/debug/gpio | grep gpio-7 | grep hi)
     STATUS=$?
     # STATUS is 0 (default) or 1 (bridge mode or error)
     exit $STATUS

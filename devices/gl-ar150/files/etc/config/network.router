@@ -9,7 +9,7 @@ config globals 'globals'
 	option ula_prefix 'fd48:430c:f4bc::/48'
 
 config interface 'lan'
-	option ifname 'eth1'
+	option ifname 'eth0'
 	option force_link '1'
 	option type 'bridge'
 	option proto 'static'
@@ -18,10 +18,10 @@ config interface 'lan'
 	option ipaddr '192.168.8.1'
 
 config interface 'wan'
-	option ifname 'eth0'
+	option ifname 'eth1'
 	option proto 'dhcp'
 
 config interface 'wan6'
-	option ifname 'eth0'
+	option ifname 'eth1'
 	option proto 'dhcpv6'
 

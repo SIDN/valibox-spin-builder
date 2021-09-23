@@ -1,16 +1,26 @@
-- ValiBox Release 1.10 -
+- ValiBox Release 1.11 -
 
-IMPORTANT: Version 1.10 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
-IMPORTANT: Version 1.10 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
-IMPORTANT: Version 1.10 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+IMPORTANT: Version 1.11 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+IMPORTANT: Version 1.11 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
+IMPORTANT: Version 1.11 contains configuration changes that require 'Remember current configuration settings' to be DISABLED for this update.
 
 Valibox Features:
  * DNSSEC validation
  * User-friendly negative trust anchor management
  * Full configurability through OpenWRT
- * Includes SPIN (0.12)
+ * Includes SPIN (1.0)
+
 
 Changelog:
+
+1.11
+- Updated OpenWRT to 21.02.0
+- Valibox firmware upgrade functionality has been ported to Luci
+- Added a Luci configuration screen for SPIN
+- Added an initial version of the Bridge mode on the gl-ar150 version
+- Replace image for Raspberry Pi 3 by image for Raspberry Pi 4
+- Updated SPIN to 1.0
+  * TODO: spin changelog
 
 1.10
 - Updated Unbound to 1.13
