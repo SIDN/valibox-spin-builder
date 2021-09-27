@@ -50,11 +50,8 @@ elif [ "${COMMAND}" == "off" ]; then
     reboot
     exit 0
 else
-    # Check status, return 0 when in bridge mode, 1 otherwise.
-    # In openwrt<=19.07
-    #NOTHING=$(cat /sys/kernel/debug/gpio | grep BTN_8 | grep hi)
-    # In openwrt>=21.2
-    NOTHING=$(cat /sys/kernel/debug/gpio | grep gpio-7 | grep hi)
+    # The exact name of the button switch can differ
+    NOTHING=$(cat /sys/kernel/debug/gpio | grep 'gpio-8\|BTN_8' | grep hi)
     STATUS=$?
     # STATUS is 0 (default) or 1 (bridge mode or error)
     exit $STATUS
