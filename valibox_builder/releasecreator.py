@@ -48,7 +48,9 @@ class ReleaseCreator:
                 reader = csv.reader(inf, delimiter=',', quotechar='"')
                 for parts in reader:
                     if len(parts) != 2:
-                        raise ReleaseEnvironmentError("Image information file (%s) does not contain <name>,<path>" % info_file)
+                        print("[ERROR] Image information file (%s) does not contain <name>,<path>" % info_file)
+                        print("[ERROR] Parts: %s" % str(parts))
+                        raise ReleaseEnvironmentError("Error reading image file %s" % info_file)
                     image_name = parts[0].strip()
                     image_file = parts[1].strip()
                     self.images.append((image_name, image_file))
