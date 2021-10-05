@@ -19,8 +19,29 @@ Changelog:
 - Added a Luci configuration screen for SPIN
 - Added an initial version of the Bridge mode on the gl-ar150 version
 - Replace image for Raspberry Pi 3 by image for Raspberry Pi 4
-- Updated SPIN to 1.0
-  * TODO: spin changelog
+- Updated SPIN to 1.0:
+  * Added support for bridge mode, where SPIN is not running on an access point,
+    but as a bump in the wire
+  * Spinweb now shows some suggestions on what could be wrong when it is
+    unable to connect to the MQTT server
+  * Added support for TLS (and wss) in spinweb
+  * Added option to enable HTTP authentication in spinweb
+  * Added support for mosquitto user authentication in spinweb
+  * Updated the vis library in the bubble app
+  * Improved logging options, spind can now log to syslog, file, and standard out,
+    and log to multiple targets simultaneously
+  * Reduced traffic exchanged between PCAP reader and spind by aggregating
+    information before sending it
+  * Added support for network communication between PCAP reader and spind
+  * Bugfixes
+    - Fixed issue in call to mkstemp() (https://github.com/SIDN/spin/issues/77)
+    - Fixed several small issues in the PCAP reader connection code core2ext
+    - Fixed issue with spinweb query parameter mqtt_port
+      (https://github.com/SIDN/spin/issues/79)
+    - Fixed a number of issues with the generated mosquitto configuration when
+      spind runs its own instance of mosquitto
+    - Fixed the issue where tcpdump could fail until router was rebooted
+    - Improved cleanup routines when SPIN fails to start
 
 1.10
 - Updated Unbound to 1.13
