@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# This script contains device-specific information for turning the bridge mode on or off
+# Button 'left' mode is released (default on), normal mode.
+# Button 'right' means pressed: bridge mode
+
+if [ "${BUTTON}" == "BTN_0" ]; then
+    case "${ACTION}" in
+        "released")
+            # Check if the bridge was enabled
+            echo "timer" > /sys/class/leds/red\:wlan/trigger
+            /sbin/bridge.sh off
+            if [ $? -eq 0 ]; then
+                logger "Bridge disabled, back to normal"
+                echo "none" > /sys/class/leds/red\:wlan/trigger
+                echo 0 > /sys/class/leds/red\:wlan/brightness
+            fi
+            ;;
+        "pressed")
+            # Check if the bridge was disabled before.
+            echo "timer" > /sys/class/leds/red\:wlan/trigger
+            /sbin/bridge.sh on
+            if [ $? -eq 1 ]; then
+                logger "Bridge-mode enabled"
+                echo "none" > /sys/class/leds/red\:wlan/trigger
+                echo 1 > /sys/class/leds/red\:wlan/brightness
+            fi
+            ;;
+    esac
+fi

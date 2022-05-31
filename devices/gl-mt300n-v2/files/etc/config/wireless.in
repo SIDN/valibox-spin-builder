@@ -1,0 +1,18 @@
+
+config wifi-device 'radio0'
+	option type 'mac80211'
+	option hwmode '11g'
+	option path 'platform/10300000.wmac'
+	option htmode 'HT20'
+	option channel '11'
+	option txpower '30'
+	option country 'NL'
+
+config wifi-iface 'wifinet0'
+	option device 'radio0'
+	option mode 'ap'
+	option encryption 'psk2'
+	option key 'goodlife'
+	option ssid 'SIDN-ValiBox-XHWADDRX'
+	option network 'lan'
+	option disabled '0'
